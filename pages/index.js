@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core'
 
 export default function Home() {
     return (
-        <div>
+        <>
             <Head>
                 <title>Create Next App</title>
                 <link rel='icon' href='/favicon.ico' />
@@ -15,6 +15,6 @@ export default function Home() {
                 </h1>
                 <Box>George</Box>
             </main>
-        </div>
+        </>
     )
 }

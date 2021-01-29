@@ -5,6 +5,7 @@ import theme from '../theme'
 
 export default class MyDocument extends Document {
     render() {
+        console.log(JSON.stringify(theme, null, 4))
         return (
             <Html lang='en'>
                 <Head>
