@@ -19,19 +19,19 @@ const useStyles = makeStyles(theme => ({
         color: 'lightgreen'
     },
     onRed: {
-        color: 'orangered'
+        color: 'coral'
     },
     onBlue: {
         color: 'skyblue'
     },
     onOrange: {
-        color: 'Orange'
+        color: 'orange'
     },
     onWhite: {
         color: '#eee'
     },
     dim: {
-        filter: 'brightness(40%)'
+        filter: 'brightness(30%)'
     }
 
 }))
@@ -58,6 +58,8 @@ export default function SegDisplay({ alpha, zeros, color, digits, fontSize, hex,
         text = text.length > digits ? text.substr(text.length - digits, text.length) : text
     }
 
+    text = text.replace(/\s/g, `<div style="min-width: ${fontSize * 1.62}rem; display:inline-block; backgroundColor:red"></div>`)
+
     let onColor = classes.onGreen
     if (color === 'red') {
         onColor = classes.onRed
@@ -74,11 +76,11 @@ export default function SegDisplay({ alpha, zeros, color, digits, fontSize, hex,
     return <Box className={classes.display} style={{
         width: `calc(${digits * 1.62 * fontSize}rem + ${16}px)`,
         fontSize: `${fontSize * 2}rem`,
-        height: 52 * fontSize + 4 - 0.5 * fontSize * fontSize,
+        height: 52 * fontSize + 1 - 0.7 * fontSize * fontSize,
         paddingTop: 3,
         fontFamily: alpha ? 'DSEG14Classic' : 'DSEG7Classic'
     }}>
         <Box className={clsx(classes.background, onColor, classes.dim)}>{fill}</Box>
-        <Box className={clsx(classes.data, onColor)}>{text}</Box>
+        <Box className={clsx(classes.data, onColor)} dangerouslySetInnerHTML={{ __html: text }}/>
     </Box>
 }

@@ -21,6 +21,7 @@ export default function InstrumentPanel() {
         return () => clearInterval(interval)
     }, [])
 
+    const message = 'George Campbell, Worthington, OH'
     return <Box>
         <SegDisplay className={classes.root} alpha digits={8} color='green' fontSize={2}>{count}</SegDisplay>
         <SegDisplay color='red' hex className={classes.root}>{count}</SegDisplay>
@@ -28,6 +29,6 @@ export default function InstrumentPanel() {
         <SegDisplay color='blue' digits={16} className={classes.root} binary >{count}</SegDisplay>
         <SegDisplay color='orange' digits={4} className={classes.root}>{count / 10.0}</SegDisplay>
         <SegDisplay color='orange' fontSize={0.5} digits={16} className={classes.root}>{count}</SegDisplay>
-        <SegDisplay color='blue' alpha fontSize={0.75} digits={32} className={classes.root}>George Campbell, Worthington, OH</SegDisplay>
+        <SegDisplay color='blue' alpha fontSize={0.75} digits={33} className={classes.root}>{message}</SegDisplay>
     </Box>
 }
