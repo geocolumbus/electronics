@@ -17,16 +17,17 @@ export default function InstrumentPanel() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCount(prevCount => prevCount + 1)
-        }, 100)
+        }, 250)
         return () => clearInterval(interval)
     }, [])
 
     return <Box>
-        <SegDisplay className={classes.root} digits={4} zeros color='green' fontSize={2}>{count}</SegDisplay>
-        <SegDisplay color='red' className={classes.root}>{count}</SegDisplay>
-        <SegDisplay color='blue' className={classes.root}>{count}</SegDisplay>
-        <SegDisplay color='blue' digits={16} className={classes.root}>A454B43</SegDisplay>
-        <SegDisplay color='orange' className={classes.root}>{count}</SegDisplay>
+        <SegDisplay className={classes.root} alpha digits={8} color='green' fontSize={2}>{count}</SegDisplay>
+        <SegDisplay color='red' hex className={classes.root}>{count}</SegDisplay>
+        <SegDisplay color='white' octal className={classes.root}>{count}</SegDisplay>
+        <SegDisplay color='blue' digits={16} className={classes.root} binary >{count}</SegDisplay>
+        <SegDisplay color='orange' digits={4} className={classes.root}>{count / 10.0}</SegDisplay>
         <SegDisplay color='orange' fontSize={0.5} digits={16} className={classes.root}>{count}</SegDisplay>
+        <SegDisplay color='blue' alpha fontSize={0.75} digits={32} className={classes.root}>George Campbell, Worthington, OH</SegDisplay>
     </Box>
 }

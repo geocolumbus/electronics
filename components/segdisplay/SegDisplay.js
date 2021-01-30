@@ -4,10 +4,7 @@ import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
     display: {
-        fontFamily: 'DSEG7Classic, sans-serif',
         backgroundColor: '#333',
-        border: '2px solid lightgray',
-        boxShadow: '2px 2px gray',
         position: 'relative'
     },
     background: {
@@ -30,13 +27,16 @@ const useStyles = makeStyles(theme => ({
     onOrange: {
         color: 'Orange'
     },
+    onWhite: {
+        color: '#eee'
+    },
     dim: {
         filter: 'brightness(40%)'
     }
 
 }))
 
-export default function SegDisplay({ zeros, color, digits, fontSize, children }) {
+export default function SegDisplay({ alpha, zeros, color, digits, fontSize, hex, binary, octal, children }) {
 
     const classes = useStyles()
     let text = children
@@ -44,13 +44,18 @@ export default function SegDisplay({ zeros, color, digits, fontSize, children })
     fontSize = fontSize || 1
 
     if (isFinite(text)) {
-        text = children.toString()
+        text = hex ? text.toString(16) : text
+        text = octal ? text.toString(8) : text
+        text = binary ? text.toString(2) : text
+        text = !hex && !octal && !binary ? text.toString(10) : text
 
         if (zeros) {
             while (text.length < digits) {
                 text = '0' + text
             }
         }
+
+        text = text.length > digits ? text.substr(text.length - digits, text.length) : text
     }
 
     let onColor = classes.onGreen
@@ -60,15 +65,20 @@ export default function SegDisplay({ zeros, color, digits, fontSize, children })
         onColor = classes.onBlue
     } else if (color === 'orange') {
         onColor = classes.onOrange
+    } else if (color === 'white') {
+        onColor = classes.onWhite
     }
+
+    const fill = alpha ? '~'.repeat(digits) : '8'.repeat(digits)
 
     return <Box className={classes.display} style={{
         width: `calc(${digits * 1.62 * fontSize}rem + ${16}px)`,
         fontSize: `${fontSize * 2}rem`,
-        height: 42 * fontSize + 14,
-        paddingTop: 3
+        height: 52 * fontSize + 4 - 0.5 * fontSize * fontSize,
+        paddingTop: 3,
+        fontFamily: alpha ? 'DSEG14Classic' : 'DSEG7Classic'
     }}>
-        <Box className={clsx(classes.background, onColor, classes.dim)}>{'8'.repeat(digits)}</Box>
+        <Box className={clsx(classes.background, onColor, classes.dim)}>{fill}</Box>
         <Box className={clsx(classes.data, onColor)}>{text}</Box>
     </Box>
 }
