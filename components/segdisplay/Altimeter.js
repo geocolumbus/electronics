@@ -54,14 +54,14 @@ const useStyles = makeStyles(theme => ({
     tickNumbers: {
         color: '#fff',
         fontSize: 24,
-        fontWeight: 700
+        fontWeight: 500
     },
     tickNumbersContainer: {
         width: 20,
         height: 156,
         position: 'absolute',
         top: 10,
-        left: 82
+        left: 82.5
     },
     centerPin: {
         width: 12,
@@ -69,24 +69,52 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 6,
         position: 'absolute',
         top: 84,
-        left: 84,
-        backgroundColor: '#ddd'
+        left: 83.5,
+        backgroundColor: '#ddd',
+        zIndex: 10
+    },
+    hand1: {
+        width: 3,
+        height: 66,
+        backgroundColor: '#eee',
+        position: 'absolute',
+        top: 20
+    },
+    hand1Container: {
+        width: 4,
+        height: 180,
+        position: 'absolute',
+        left: 88
+    },
+    hand2: {
+        width: 5,
+        height: 60,
+        backgroundColor: '#ff0',
+        position: 'absolute',
+        top: 25
+    },
+    hand2Container: {
+        width: 4,
+        height: 180,
+        position: 'absolute',
+        left: 87
     }
+
 }))
 
 const tickMarks = (classes) => {
     const marks = []
     for (let i = 0; i < 100; i += 2) {
         const tickMark = <Box
+            key = {i}
             className={classes.tickMarkContainer}
-            key={i}
             style={{ transform: `rotate(${i * 3.6}deg )` }}
         >
             <Box className={classes.tickMark}/>
         </Box>
         const tickMarkSmall = <Box
+            key = {i}
             className={classes.tickMarkContainerSmall}
-            key={i}
             style={{ transform: `rotate(${i * 3.6}deg )` }}
         >
             <Box className={classes.tickMarkSmall}/>
@@ -100,6 +128,7 @@ const numbers = (classes) => {
     const tickNums = []
     for (let i = 0; i < 10; i++) {
         const tickNum = <Box
+            key = {i}
             className={classes.tickNumbersContainer}
             style={{ transform: `rotate(${i * 36}deg)` }}
         >
@@ -113,8 +142,27 @@ const numbers = (classes) => {
     return tickNums
 }
 
-export default function Altimeter() {
+const hand1 = (classes, val) => {
+    return <Box className={classes.hand1Container} style = {{ transform: `rotate(${val}deg)` }}>
+        <Box className={classes.hand1}/>
+    </Box>
+}
+
+const hand2 = (classes, val) => {
+    return <Box className={classes.hand2Container} style = {{ transform: `rotate(${val}deg)` }}>
+        <Box className={classes.hand2}/>
+    </Box>
+}
+
+export default function Altimeter({ value }) {
     const classes = useStyles()
+    let hand1val = 0
+    let hand2val = 0
+
+    if (isFinite(value)) {
+        hand1val = value / 10000 * 360
+        hand2val = value / 100000 * 360
+    }
 
     return <Box className={classes.frame}>
         <Box className={classes.bezel}>
@@ -122,6 +170,8 @@ export default function Altimeter() {
                 {tickMarks(classes)}
                 {numbers(classes)}
                 <Box className={classes.centerPin}/>
+                {hand1(classes, hand1val)}
+                {hand2(classes, hand2val)}
             </Box>
         </Box>
     </Box>

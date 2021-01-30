@@ -12,6 +12,6 @@ export default function InstrumentPanel() {
     const classes = useStyles()
 
     return <Box className={classes.root}>
-        <Altimeter/>
+        <Altimeter value={4000}/>
     </Box>
 }
