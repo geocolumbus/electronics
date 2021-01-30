@@ -11,6 +11,12 @@ const useStyles = makeStyles(theme => ({
         position: 'absolute',
         right: 4
     },
+    backgroundLCD: {
+        backgroundColor: '#ccc'
+    },
+    backgroundLED: {
+        backgroundColor: '#333'
+    },
     data: {
         position: 'absolute',
         right: 4
@@ -30,13 +36,19 @@ const useStyles = makeStyles(theme => ({
     onWhite: {
         color: '#eee'
     },
-    dim: {
+    onLCD: {
+        color: '#333'
+    },
+    dimLED: {
         filter: 'brightness(30%)'
+    },
+    dimLCD: {
+        color: '#bbb !important'
     }
 
 }))
 
-export default function SegDisplay({ alpha, zeros, color, digits, fontSize, hex, binary, octal, children }) {
+export default function SegDisplay({ alpha, zeros, color, digits, fontSize, hex, binary, octal, lcd, children }) {
 
     const classes = useStyles()
     let text = children
@@ -71,16 +83,24 @@ export default function SegDisplay({ alpha, zeros, color, digits, fontSize, hex,
         onColor = classes.onWhite
     }
 
+    let backgroundColor = classes.backgroundLED
+    let dim = classes.dimLED
+    if (lcd) {
+        onColor = classes.onLCD
+        backgroundColor = classes.backgroundLCD
+        dim = classes.dimLCD
+    }
+
     const fill = alpha ? '~'.repeat(digits) : '8'.repeat(digits)
 
-    return <Box className={classes.display} style={{
+    return <Box className={clsx(classes.display, backgroundColor)} style={{
         width: `calc(${digits * 1.62 * fontSize}rem + ${16}px)`,
         fontSize: `${fontSize * 2}rem`,
-        height: 52 * fontSize + 1 - 0.7 * fontSize * fontSize,
+        height: 52 * fontSize + 1 - 4 * fontSize * fontSize,
         paddingTop: 3,
         fontFamily: alpha ? 'DSEG14Classic' : 'DSEG7Classic'
     }}>
-        <Box className={clsx(classes.background, onColor, classes.dim)}>{fill}</Box>
+        <Box className={clsx(classes.background, onColor, dim)}>{fill}</Box>
         <Box className={clsx(classes.data, onColor)} dangerouslySetInnerHTML={{ __html: text }}/>
     </Box>
 }
