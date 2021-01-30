@@ -1,5 +1,6 @@
-import { Box, Container, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import SegDisplay from '../components/segdisplay/SegDisplay'
+import { Container } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -31,16 +32,7 @@ export default function Home() {
 
     return (
         <Container className={classes.container}>
-            <Grid container spacing={0}>
-                <Grid item xs={12}>
-                    <Box className={classes.header}>Header</Box>
-                </Grid>
-                <Grid item xs={2}><Box className={classes.menu}>Menu</Box></Grid>
-                <Grid item xs={10}><Box className={classes.body}>Body</Box></Grid>
-                <Grid item xs={12}>
-                    <Box className={classes.footer}>Footer</Box>
-                </Grid>
-            </Grid>
+            <SegDisplay>4830747</SegDisplay>
         </Container>
     )
 }
