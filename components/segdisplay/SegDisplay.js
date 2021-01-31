@@ -94,7 +94,7 @@ export default function SegDisplay({ alpha, zeros, color, digits, fontSize, hex,
     const fill = alpha ? '~'.repeat(digits) : '8'.repeat(digits)
 
     return <Box className={clsx(classes.display, backgroundColor)} style={{
-        width: `calc(${digits * 1.62 * fontSize}rem + ${16}px)`,
+        width: `calc(${digits * 1.62 * fontSize}rem + ${fontSize < 0.5 ? 8 : 16}px)`,
         fontSize: `${fontSize * 2}rem`,
         height: 52 * fontSize + 1 - 4 * fontSize * fontSize,
         paddingTop: 3,

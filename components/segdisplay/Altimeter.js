@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
+import SegDisplay from './SegDisplay'
 
 const useStyles = makeStyles(theme => ({
     frame: {
@@ -27,7 +28,16 @@ const useStyles = makeStyles(theme => ({
         position: 'absolute',
         left: 3,
         top: 3,
-        backgroundColor: '#333'
+        backgroundColor: '#444'
+    },
+    innerCircle: {
+        width: 96,
+        height: 96,
+        border: '1px solid white',
+        borderRadius: 90,
+        position: 'absolute',
+        left: 41,
+        top: 40
     },
     tickMark: {
         width: 2,
@@ -68,36 +78,60 @@ const useStyles = makeStyles(theme => ({
         height: 12,
         borderRadius: 6,
         position: 'absolute',
-        top: 84,
+        top: 82,
         left: 83.5,
-        backgroundColor: '#ddd',
-        zIndex: 10
-    },
-    hand1: {
-        width: 3,
-        height: 66,
-        backgroundColor: '#eee',
-        position: 'absolute',
-        top: 20
+        backgroundColor: '#ccc',
+        zIndex: 20
     },
     hand1Container: {
         width: 4,
         height: 180,
         position: 'absolute',
-        left: 88
+        left: 88,
+        top: -2,
+        zIndex: 10
     },
-    hand2: {
-        width: 5,
-        height: 60,
-        backgroundColor: '#ff0',
+    hand1: {
+        width: '100%',
+        height: 100,
         position: 'absolute',
-        top: 25
+        top: 15
     },
     hand2Container: {
-        width: 4,
+        width: 10,
         height: 180,
         position: 'absolute',
-        left: 87
+        left: 84,
+        top: -2,
+        zIndex: 10
+    },
+    hand2: {
+        width: '100%',
+        height: 50,
+        position: 'absolute',
+        top: 44
+    },
+    hand3Container: {
+        width: 10,
+        height: 180,
+        position: 'absolute',
+        left: 84,
+        top: -2,
+        zIndex: 10
+    },
+    hand3: {
+        width: '100%',
+        height: 84,
+        position: 'absolute',
+        top: 2
+    },
+    segDisplay: {
+        position: 'absolute',
+        top: 100,
+        left: 60,
+        borderRadius: 6,
+        overflow: 'hidden',
+        width: 60
     }
 
 }))
@@ -144,13 +178,36 @@ const numbers = (classes) => {
 
 const hand1 = (classes, val) => {
     return <Box className={classes.hand1Container} style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.hand1}/>
+        <Box className={classes.hand1}>
+            <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
+                <polygon points='50,0 100,100 100,500 0,500 0,100' stroke='white' strokeWidth='1' fill='white'/>
+                <polygon points='0,500 100,500 100,800 0,800' stroke='black' strokeWidth='1' fill='black'/>
+            </svg>
+        </Box>
     </Box>
 }
 
 const hand2 = (classes, val) => {
     return <Box className={classes.hand2Container} style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.hand2}/>
+        <Box className={classes.hand2}>
+            <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
+                <polygon points='50,0 100,250 70,400 70,500 30,500 30,400 0,250' stroke='white' strokeWidth='1'
+                    fill='white'/>
+                <polygon points='30,500 70,500 70,800 30,800' stroke='black' strokeWidth='1' fill='black'/>
+            </svg>
+        </Box>
+    </Box>
+}
+
+const hand3 = (classes, val) => {
+    return <Box className={classes.hand3Container} style = {{ transform: `rotate(${val}deg)` }}>
+        <Box className={classes.hand3}>
+            <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
+                <polygon points='0,0 100,0 55,100 55,225 60,250 60,500 40,500 40,250 45,225 45,100' stroke='white'
+                    strokeWidth='1' fill='white'/>
+                <polygon points='40,500 60,500 60,800 40,800' stroke='black' strokeWidth='1' fill='black'/>
+            </svg>
+        </Box>
     </Box>
 }
 
@@ -158,20 +215,27 @@ export default function Altimeter({ value }) {
     const classes = useStyles()
     let hand1val = 0
     let hand2val = 0
+    let hand3val = 0
 
     if (isFinite(value)) {
-        hand1val = value / 10000 * 360
-        hand2val = value / 100000 * 360
+        hand1val = value / 1000 * 360
+        hand2val = value / 10000 * 360
+        hand3val = value / 100000 * 360
     }
 
     return <Box className={classes.frame}>
         <Box className={classes.bezel}>
             <Box className={classes.bezelInner}>
+                <Box className={classes.innerCircle}/>
                 {tickMarks(classes)}
                 {numbers(classes)}
                 <Box className={classes.centerPin}/>
                 {hand1(classes, hand1val)}
                 {hand2(classes, hand2val)}
+                {hand3(classes, hand3val)}
+                <Box className={classes.segDisplay}>
+                    <SegDisplay digits={5} color='red' fontSize={0.4}>{value}</SegDisplay>
+                </Box>
             </Box>
         </Box>
     </Box>
