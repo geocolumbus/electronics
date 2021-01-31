@@ -127,7 +127,7 @@ const useStyles = makeStyles(theme => ({
     },
     segDisplay: {
         position: 'absolute',
-        top: 100,
+        top: 54,
         left: 60,
         borderRadius: 6,
         overflow: 'hidden',
@@ -180,8 +180,8 @@ const hand1 = (classes, val) => {
     return <Box className={classes.hand1Container} style = {{ transform: `rotate(${val}deg)` }}>
         <Box className={classes.hand1}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
-                <polygon points='50,0 100,100 100,500 0,500 0,100' stroke='white' strokeWidth='1' fill='white'/>
-                <polygon points='0,500 100,500 100,800 0,800' stroke='black' strokeWidth='1' fill='black'/>
+                <polygon points='50,0 100,100 100,450 0,450 0,100' stroke='white' strokeWidth='1' fill='white'/>
+                <polygon points='0,450 100,450 100,800 0,800' stroke='black' strokeWidth='1' fill='black'/>
             </svg>
         </Box>
     </Box>
@@ -191,9 +191,9 @@ const hand2 = (classes, val) => {
     return <Box className={classes.hand2Container} style = {{ transform: `rotate(${val}deg)` }}>
         <Box className={classes.hand2}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
-                <polygon points='50,0 100,250 70,400 70,500 30,500 30,400 0,250' stroke='white' strokeWidth='1'
+                <polygon points='50,0 100,250 70,450 70,450 30,450 30,450 0,250' stroke='white' strokeWidth='1'
                     fill='white'/>
-                <polygon points='30,500 70,500 70,800 30,800' stroke='black' strokeWidth='1' fill='black'/>
+                <polygon points='30,450 70,450 70,800 30,800' stroke='black' strokeWidth='1' fill='black'/>
             </svg>
         </Box>
     </Box>
@@ -203,9 +203,9 @@ const hand3 = (classes, val) => {
     return <Box className={classes.hand3Container} style = {{ transform: `rotate(${val}deg)` }}>
         <Box className={classes.hand3}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
-                <polygon points='0,0 100,0 55,100 55,225 60,250 60,500 40,500 40,250 45,225 45,100' stroke='white'
+                <polygon points='0,0 100,0 55,100 55,400 60,425 60,660 40,660 40,425 45,400 45,100' stroke='white'
                     strokeWidth='1' fill='white'/>
-                <polygon points='40,500 60,500 60,800 40,800' stroke='black' strokeWidth='1' fill='black'/>
+                <polygon points='40,660 60,660 60,800 40,800' stroke='black' strokeWidth='1' fill='black'/>
             </svg>
         </Box>
     </Box>
