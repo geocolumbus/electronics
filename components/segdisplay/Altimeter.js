@@ -126,8 +126,8 @@ const useStyles = makeStyles(theme => ({
     },
     segDisplay: {
         position: 'absolute',
-        top: 54,
-        left: 60,
+        top: 77,
+        left: 116,
         borderRadius: 6,
         overflow: 'hidden',
         width: 60
@@ -222,7 +222,7 @@ export default function Altimeter({ value }) {
         hand3val = value / 100000 * 360
     }
 
-    return <BevelBox width={220} height={220} bevel={50} offset={12} color={'lightgray'}>
+    return <BevelBox width={220} height={220} bevel={50} offset={12} color={'#bbb'}>
         <Box className={classes.frame}>
             <Box className={classes.bezel}>
                 <Box className={classes.bezelInner}>
@@ -234,7 +234,7 @@ export default function Altimeter({ value }) {
                     {hand2(classes, hand2val)}
                     {hand3(classes, hand3val)}
                     <Box className={classes.segDisplay}>
-                        <SegDisplay digits={5} color='red' fontSize={0.4}>{value}</SegDisplay>
+                        <SegDisplay digits={5} color='green' fontSize={0.4}>{value}</SegDisplay>
                     </Box>
                 </Box>
             </Box>
