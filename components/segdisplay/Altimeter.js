@@ -1,14 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 import SegDisplay from './SegDisplay'
+import BevelBox from './BevelBox'
 
 const useStyles = makeStyles(theme => ({
     frame: {
         width: 200,
         height: 200,
-        border: '2px solid black',
-        position: 'relative',
-        backgroundColor: '#eee'
+        position: 'relative'
     },
     bezel: {
         width: 190,
@@ -223,20 +222,22 @@ export default function Altimeter({ value }) {
         hand3val = value / 100000 * 360
     }
 
-    return <Box className={classes.frame}>
-        <Box className={classes.bezel}>
-            <Box className={classes.bezelInner}>
-                <Box className={classes.innerCircle}/>
-                {tickMarks(classes)}
-                {numbers(classes)}
-                <Box className={classes.centerPin}/>
-                {hand1(classes, hand1val)}
-                {hand2(classes, hand2val)}
-                {hand3(classes, hand3val)}
-                <Box className={classes.segDisplay}>
-                    <SegDisplay digits={5} color='red' fontSize={0.4}>{value}</SegDisplay>
+    return <BevelBox width={220} height={220} bevel={50} offset={12} color={'lightgray'}>
+        <Box className={classes.frame}>
+            <Box className={classes.bezel}>
+                <Box className={classes.bezelInner}>
+                    <Box className={classes.innerCircle}/>
+                    {tickMarks(classes)}
+                    {numbers(classes)}
+                    <Box className={classes.centerPin}/>
+                    {hand1(classes, hand1val)}
+                    {hand2(classes, hand2val)}
+                    {hand3(classes, hand3val)}
+                    <Box className={classes.segDisplay}>
+                        <SegDisplay digits={5} color='red' fontSize={0.4}>{value}</SegDisplay>
+                    </Box>
                 </Box>
             </Box>
         </Box>
-    </Box>
+    </BevelBox>
 }

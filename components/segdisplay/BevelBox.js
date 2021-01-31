@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function BevelBox({ color, width, height, bevel, children }) {
+export default function BevelBox({ color, width, height, bevel, offset, children }) {
     const classes = useStyles()
     return <Box
         className={classes.bvc}
@@ -73,7 +73,7 @@ export default function BevelBox({ color, width, height, bevel, children }) {
                 borderColor: `${color}`,
                 width: `${width}px`,
                 height: `${height - 2 * bevel}px`,
-                backgroundColor: 'red'
+                backgroundColor: `${color}`
             }}
         >
         </Box>
@@ -85,8 +85,8 @@ export default function BevelBox({ color, width, height, bevel, children }) {
             }}
         />
         <Box className={classes.content} style={{
-            top: `${bevel / 2}px`,
-            left: `${bevel / 2}px`,
+            top: `${offset}px`,
+            left: `${offset}px`,
             zIndex: 10
         }}>{children}</Box>
     </Box>
