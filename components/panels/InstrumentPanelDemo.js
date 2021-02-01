@@ -46,7 +46,7 @@ export default function InstrumentPanelDemo() {
             <SegDisplay>01234567</SegDisplay>
             <SegDisplay color='red'>9485868</SegDisplay>
             <SegDisplay color='blue'>29385</SegDisplay>
-            <SegDisplay color='orange'>2a3b456</SegDisplay>
+            <SegDisplay alpha color='orange'>$8ZMSRY</SegDisplay>
         </Box>
     </Box>
 }
