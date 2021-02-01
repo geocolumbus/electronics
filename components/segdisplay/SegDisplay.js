@@ -70,7 +70,7 @@ export default function SegDisplay({ alpha, zeros, color, digits, fontSize, hex,
         text = text.length > digits ? text.substr(text.length - digits, text.length) : text
     }
 
-    text = text.replace(/\s/g, `<div style="min-width: ${fontSize * 1.62}rem; display:inline-block; backgroundColor:red"></div>`)
+    text = text?.replace(/\s/g, `<div style="min-width: ${fontSize * 1.62}rem; display:inline-block; backgroundColor:red"></div>`)
 
     let onColor = classes.onGreen
     if (color === 'red') {

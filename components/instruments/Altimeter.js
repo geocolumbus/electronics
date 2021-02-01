@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
-import SegDisplay from './SegDisplay'
-import BevelBox from './BevelBox'
+import SegDisplay from '../segdisplay/SegDisplay'
+import BevelBox from '../atoms/BevelBox'
 
 const useStyles = makeStyles(theme => ({
     frame: {
