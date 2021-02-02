@@ -33,8 +33,8 @@ export default function InstrumentPanelDemo() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCount(prevCount => prevCount + 50)
-        }, 250)
+            setCount(prevCount => prevCount + 2)
+        }, 50)
         return () => clearInterval(interval)
     }, [])
 

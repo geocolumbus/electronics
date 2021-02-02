@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     bezelInner: {
         width: 180,
         height: 180,
-        border: '2px solid black',
+        border: '2px solid #444',
         borderRadius: 90,
         position: 'absolute',
         left: 3,
@@ -58,7 +58,7 @@ const useStyles = makeStyles(theme => ({
         width: 1,
         height: 176,
         position: 'absolute',
-        left: 89
+        left: 88.5
     },
     tickNumbers: {
         color: '#fff',
@@ -86,7 +86,7 @@ const useStyles = makeStyles(theme => ({
         width: 4,
         height: 180,
         position: 'absolute',
-        left: 88,
+        left: 87,
         top: -2,
         zIndex: 10
     },
@@ -132,7 +132,6 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden',
         width: 60
     }
-
 }))
 
 const tickMarks = (classes) => {
@@ -216,14 +215,16 @@ export default function Altimeter({ value }) {
     let hand2val = 0
     let hand3val = 0
 
+    value = value || 0
+
     if (isFinite(value)) {
         hand1val = value / 1000 * 360
         hand2val = value / 10000 * 360
         hand3val = value / 100000 * 360
     }
 
-    return <BevelBox width={220} height={220} bevel={50} offset={12} color={'#bbb'}>
-        <Box className={classes.frame}>
+    const alitmeter = ({ hand1val, hand2val, hand3val, value }) => {
+        return <Box className={classes.frame}>
             <Box className={classes.bezel}>
                 <Box className={classes.bezelInner}>
                     <Box className={classes.innerCircle}/>
@@ -239,5 +240,16 @@ export default function Altimeter({ value }) {
                 </Box>
             </Box>
         </Box>
-    </BevelBox>
+    }
+
+    return <Box style={{ position: 'relative' }}>
+        <Box style={{ position: 'absolute', top: 0, left: 0 }}>
+            <BevelBox width={224} height={224} bevel={54} color={'#666'}/>
+        </Box>
+        <Box style={{ position: 'absolute', top: 2, left: 2 }}>
+            <BevelBox width={220} height={220} bevel={54} offset={12} color={'#bbb'}>
+                {alitmeter({ hand1val, hand2val, hand3val, value })}
+            </BevelBox>
+        </Box>
+    </Box>
 }

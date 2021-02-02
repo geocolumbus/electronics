@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
         borderStyle: 'solid'
     },
     inner: {
-        borderWidth: 30,
         borderTopWidth: 0,
         borderBottomWidth: 0,
         borderStyle: 'solid'
