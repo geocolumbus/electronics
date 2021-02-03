@@ -6,6 +6,9 @@ const useStyles = makeStyles(theme => ({
     container: {
         overflow: 'hidden'
     },
+    bevelContainers: {
+
+    },
     bvc: {
         margin: '0 auto',
         position: 'relative'
@@ -43,11 +46,6 @@ const useStyles = makeStyles(theme => ({
         borderBottom: 0,
         borderLeftColor: 'transparent !important'
     },
-    noBevel: {
-        height: '0px',
-        width: '100%',
-        borderBottom: 0
-    },
     content: {
         position: 'absolute'
     }
@@ -55,12 +53,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function BevelBox({ color, width, height, bevel, offset, children }) {
     const classes = useStyles()
-    return <Box className={classes.container} style={{
-        paddingLeft: `${bevel}px`,
-        width: `${width + 2}px`,
-        height: `${height + 2}px`
-    }}>
-        <Box
+
+    const beveledContainer = ({ bezel, color, width, height, bevel, offset, children }) => {
+        return <Box
             className={classes.bvc}
             style = {{
                 width: `${width}px`,
@@ -97,6 +92,16 @@ export default function BevelBox({ color, width, height, bevel, offset, children
                 left: `${offset}px`,
                 zIndex: 10
             }}>{children}</Box>
+        </Box>
+    }
+
+    return <Box className={classes.container} style={{
+        paddingLeft: `${bevel}px`,
+        width: `${width}px`,
+        height: `${height}px`
+    }}><Box className={classes.bevelContainers}>
+            {beveledContainer({ color, width, height, bevel, offset, children })}
+            {beveledContainer({ bezel: true, width: width, height: height, bevel, offset })}
         </Box>
     </Box>
 }
