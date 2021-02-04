@@ -8,11 +8,13 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function PanelScrew() {
+export default function PanelScrew({ type }) {
     const classes = useStyles()
     return <Image
         className = {classes.screw}
-        src='/images/brass-screw.png'
+        src={type === 'steel'
+            ? '/images/screw.png'
+            : '/images/brass-screw.png'}
         alt='panel screw'
         width={20}
         height={20}
