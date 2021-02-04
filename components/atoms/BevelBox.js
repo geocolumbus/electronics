@@ -11,12 +11,15 @@ const useStyles = makeStyles(theme => ({
         position: 'relative'
     },
     bevel: {
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        borderColor: theme.custom.bezel.color
     },
     inner: {
         borderTopWidth: 0,
         borderBottomWidth: 0,
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        borderColor: theme.custom.bezel.color,
+        backgroundColor: theme.custom.bezel.color
     },
     tr: {
         height: '0px',
@@ -41,11 +44,6 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         borderBottom: 0,
         borderLeftColor: 'transparent !important'
-    },
-    noBevel: {
-        height: '0px',
-        width: '100%',
-        borderBottom: 0
     },
     content: {
         position: 'absolute'
@@ -76,20 +74,27 @@ export default function BevelBox({ color, width, height, bevel, offset, children
             />
             <Box
                 className={classes.inner}
-                style={{
-                    borderColor: `${color}`,
-                    width: `${width}px`,
-                    height: `${height - 2 * bevel}px`,
-                    backgroundColor: `${color}`
-                }}
+                style={color
+                    ? {
+                        width: `${width}px`,
+                        height: `${height - 2 * bevel}px`,
+                        borderColor: `${color}`,
+                        backgroundColor: `${color}`
+                    }
+                    : {
+                        width: `${width}px`,
+                        height: `${height - 2 * bevel}px`
+                    }}
             >
             </Box>
             <Box
                 className={clsx(classes.bevel, classes.bl, classes.br)}
-                style={{
-                    borderColor: `${color}`,
-                    borderWidth: `${bevel}px`
-                }}
+                style={color
+                    ? {
+                        borderColor: `${color}`,
+                        borderWidth: `${bevel}px`
+                    }
+                    : { borderWidth: `${bevel}px` }}
             />
             <Box className={classes.content} style={{
                 top: `${offset}px`,

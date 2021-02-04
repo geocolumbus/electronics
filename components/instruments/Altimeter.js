@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 import SegDisplay from '../segdisplay/SegDisplay'
 import BevelBox from '../atoms/BevelBox'
+import PanelScrew from '../atoms/PanelScrew'
 
 const useStyles = makeStyles(theme => ({
     frame: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
         position: 'absolute',
         left: 3,
         top: 3,
-        backgroundColor: '#fff'
+        backgroundColor: '#ddd'
     },
     bezelInner: {
         width: 180,
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
         position: 'absolute',
         left: 3,
         top: 3,
-        backgroundColor: '#444'
+        backgroundColor: theme.custom.dial.color
     },
     innerCircle: {
         width: 96,
@@ -131,7 +132,56 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 6,
         overflow: 'hidden',
         width: 60
+    },
+    screw1: {
+        position: 'absolute',
+        top: 45,
+        left: 10,
+        transform: 'rotate(25deg)'
+    },
+    screw2: {
+        position: 'absolute',
+        top: 10,
+        left: 45,
+        transform: 'rotate(-8deg)'
+    },
+    screw3: {
+        position: 'absolute',
+        top: 45,
+        left: 193,
+        transform: 'rotate(-11deg)'
+    },
+    screw4: {
+        position: 'absolute',
+        top: 10,
+        left: 158,
+        transform: 'rotate(7deg)'
+    },
+    screw5: {
+        position: 'absolute',
+        top: 158,
+        left: 10,
+        transform: 'rotate(17deg)'
+    },
+    screw6: {
+        position: 'absolute',
+        top: 193,
+        left: 45,
+        transform: 'rotate(-16deg)'
+    },
+    screw7: {
+        position: 'absolute',
+        top: 158,
+        left: 193,
+        transform: 'rotate(-33deg)'
+    },
+    screw8: {
+        position: 'absolute',
+        top: 193,
+        left: 158,
+        transform: 'rotate(7deg)'
     }
+
 }))
 
 const tickMarks = (classes) => {
@@ -242,14 +292,31 @@ export default function Altimeter({ value }) {
         </Box>
     }
 
+    const screws = () => {
+        const c = [
+            classes.screw1,
+            classes.screw2,
+            classes.screw3,
+            classes.screw4,
+            classes.screw5,
+            classes.screw6,
+            classes.screw7,
+            classes.screw8
+        ]
+        return [...Array(8).keys()].map(i => {
+            return <Box key={i} className={c[i]}><PanelScrew/></Box>
+        })
+    }
+
     return <Box style={{ position: 'relative' }}>
         <Box style={{ position: 'absolute', top: 0, left: 0 }}>
-            <BevelBox width={224} height={224} bevel={54} color={'#666'}/>
+            <BevelBox width={224} height={224} bevel={54} color={'#333'}/>
         </Box>
         <Box style={{ position: 'absolute', top: 2, left: 2 }}>
-            <BevelBox width={220} height={220} bevel={54} offset={12} color={'#bbb'}>
+            <BevelBox width={220} height={220} bevel={54} offset={12}>
                 {alitmeter({ hand1val, hand2val, hand3val, value })}
             </BevelBox>
         </Box>
+        {screws()}
     </Box>
 }
