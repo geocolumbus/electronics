@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 import Altimeter from '../instruments/Altimeter'
 import SegDisplay from '../segdisplay/SegDisplay'
+import Clock from "../instruments/Clock"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -41,6 +42,9 @@ export default function InstrumentPanelDemo() {
     return <Box className={classes.root}>
         <Box className={classes.meter}>
             <Altimeter value={count}/>
+        </Box>
+        <Box className={classes.meter}>
+            <Clock/>
         </Box>
         <Box className={classes.segDisplay} >
             <SegDisplay>01234567</SegDisplay>

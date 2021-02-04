@@ -4,10 +4,10 @@ import { createMuiTheme } from '@material-ui/core/styles'
 const theme = createMuiTheme({
     custom: {
         dial: {
-            color: 'darkslategrey' // darkslategrey
+            color: '#333' // darkslategrey
         },
         bezel: {
-            color: '#334' // #334
+            color: '#445' // #334
         }
     }
 })

@@ -37,7 +37,8 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 90,
         position: 'absolute',
         left: 41,
-        top: 40
+        top: 40,
+        zIndex: 50
     },
     tickMark: {
         width: 2,
@@ -63,8 +64,8 @@ const useStyles = makeStyles(theme => ({
     },
     tickNumbers: {
         color: '#fff',
-        fontSize: 24,
-        fontWeight: 500
+        fontSize: 18,
+        fontWeight: 700
     },
     tickNumbersContainer: {
         width: 20,
@@ -83,7 +84,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: '#ccc',
         zIndex: 20
     },
-    hand1Container: {
+    minuteHandContainer: {
         width: 4,
         height: 180,
         position: 'absolute',
@@ -91,13 +92,13 @@ const useStyles = makeStyles(theme => ({
         top: -2,
         zIndex: 10
     },
-    hand1: {
+    minuteHand: {
         width: '100%',
         height: 100,
         position: 'absolute',
         top: 15
     },
-    hand2Container: {
+    hourHandContainer: {
         width: 10,
         height: 180,
         position: 'absolute',
@@ -105,13 +106,13 @@ const useStyles = makeStyles(theme => ({
         top: -2,
         zIndex: 10
     },
-    hand2: {
+    hourHand: {
         width: '100%',
         height: 50,
         position: 'absolute',
         top: 44
     },
-    hand3Container: {
+    secondHandContainer: {
         width: 10,
         height: 180,
         position: 'absolute',
@@ -119,7 +120,7 @@ const useStyles = makeStyles(theme => ({
         top: -2,
         zIndex: 10
     },
-    hand3: {
+    secondHand: {
         width: '100%',
         height: 84,
         position: 'absolute',
@@ -128,10 +129,10 @@ const useStyles = makeStyles(theme => ({
     segDisplay: {
         position: 'absolute',
         top: 77,
-        left: 116,
+        left: 137,
         borderRadius: 6,
         overflow: 'hidden',
-        width: 60
+        width: 28
     },
     screw1: {
         position: 'absolute',
@@ -186,47 +187,59 @@ const useStyles = makeStyles(theme => ({
 
 const tickMarks = (classes) => {
     const marks = []
-    for (let i = 0; i < 100; i += 2) {
+    for (let i = 0; i < 60; i += 1) {
         const tickMark = <Box
             key = {i}
             className={classes.tickMarkContainer}
-            style={{ transform: `rotate(${i * 3.6}deg )` }}
+            style={{ transform: `rotate(${i * 6}deg )` }}
         >
             <Box className={classes.tickMark}/>
         </Box>
         const tickMarkSmall = <Box
             key = {i}
             className={classes.tickMarkContainerSmall}
-            style={{ transform: `rotate(${i * 3.6}deg )` }}
+            style={{ transform: `rotate(${i * 6}deg )` }}
         >
             <Box className={classes.tickMarkSmall}/>
         </Box>
-        marks.push(i % 10 === 0 ? tickMark : tickMarkSmall)
+        marks.push(i % 5 === 0 ? tickMark : tickMarkSmall)
     }
     return marks
 }
 
 const numbers = (classes) => {
     const tickNums = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 12; i++) {
         const tickNum = <Box
             key = {i}
             className={classes.tickNumbersContainer}
-            style={{ transform: `rotate(${i * 36}deg)` }}
+            style={{ transform: i < 9 ? `rotate(${i * 30 + 30}deg)` : `rotate(${i * 30 + 23}deg)` }}
         >
             <Box
                 className={classes.tickNumbers}
-                style={{ transform: `rotate(${-i * 36}deg)` }}
-            >{i}</Box>
+                style={{ transform: i < 9 ? `rotate(${-i * 30 - 30}deg)` : `rotate(${-i * 30 - 23}deg)` }}
+            >{i + 1}</Box>
         </Box>
         tickNums.push(tickNum)
     }
     return tickNums
 }
 
-const hand1 = (classes, val) => {
-    return <Box className={classes.hand1Container} style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.hand1}>
+const secondHand = (classes, val) => {
+    return <Box className={classes.secondHandContainer} style = {{ transform: `rotate(${val}deg)` }}>
+        <Box className={classes.secondHand}>
+            <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
+                <polygon points='0,0  100,0  55,100  55,400  60,425  60,660  40,660  40,425  45,400  45,100' stroke='red'
+                    strokeWidth='1' fill='red'/>
+                <polygon points='40,660 60,660 60,800 40,800' stroke='black' strokeWidth='1' fill='black'/>
+            </svg>
+        </Box>
+    </Box>
+}
+
+const minuteHand = (classes, val) => {
+    return <Box className={classes.minuteHandContainer} style = {{ transform: `rotate(${val}deg)` }}>
+        <Box className={classes.minuteHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='50,0 100,100 100,450 0,450 0,100' stroke='white' strokeWidth='1' fill='white'/>
                 <polygon points='0,450 100,450 100,800 0,800' stroke='black' strokeWidth='1' fill='black'/>
@@ -235,9 +248,9 @@ const hand1 = (classes, val) => {
     </Box>
 }
 
-const hand2 = (classes, val) => {
-    return <Box className={classes.hand2Container} style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.hand2}>
+const hourHand = (classes, val) => {
+    return <Box className={classes.hourHandContainer} style = {{ transform: `rotate(${val}deg)` }}>
+        <Box className={classes.hourHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='50,0 100,250 70,450 70,450 30,450 30,450 0,250' stroke='white' strokeWidth='1'
                     fill='white'/>
@@ -247,50 +260,35 @@ const hand2 = (classes, val) => {
     </Box>
 }
 
-const hand3 = (classes, val) => {
-    return <Box className={classes.hand3Container} style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.hand3}>
-            <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
-                <polygon points='0,0 100,0 55,100 55,400 60,425 60,660 40,660 40,425 45,400 45,100' stroke='white'
-                    strokeWidth='1' fill='white'/>
-                <polygon points='40,660 60,660 60,800 40,800' stroke='black' strokeWidth='1' fill='black'/>
-            </svg>
-        </Box>
-    </Box>
+const formatTime = () => {
+    const date = new Date()
+    let hours = date.getHours()
+    let ampm = 'am'
+    if (hours > 12) {
+        ampm = 'pm'
+        hours -= 12
+    }
+    if (hours === 0) {
+        hours = 12
+    }
+    let formattedHours = hours.toString()
+    let formattedMinutes = date.getMinutes().toString()
+    let formattedSeconds = date.getSeconds().toString()
+
+    formattedHours = formattedHours.length === 1 ? `0${formattedHours}` : formattedHours
+    formattedMinutes = formattedMinutes.length === 1 ? `0${formattedMinutes}` : formattedMinutes
+    formattedSeconds = formattedSeconds.length === 1 ? `0${formattedSeconds}` : formattedSeconds
+    return ampm
+    // return `${formattedHours}:${formattedMinutes}:${formattedSeconds}${ampm === 'am' ? ' a' : ' p'}`
 }
 
-export default function Altimeter({ value }) {
+export default function Clock() {
     const classes = useStyles()
-    let hand1val = 0
-    let hand2val = 0
-    let hand3val = 0
-
-    value = value || 0
-
-    if (isFinite(value)) {
-        hand1val = value / 1000 * 360
-        hand2val = value / 10000 * 360
-        hand3val = value / 100000 * 360
-    }
-
-    const alitmeter = ({ hand1val, hand2val, hand3val, value }) => {
-        return <Box className={classes.frame}>
-            <Box className={classes.bezel}>
-                <Box className={classes.bezelInner}>
-                    <Box className={classes.innerCircle}/>
-                    {tickMarks(classes)}
-                    {numbers(classes)}
-                    <Box className={classes.centerPin}/>
-                    {hand1(classes, hand1val)}
-                    {hand2(classes, hand2val)}
-                    {hand3(classes, hand3val)}
-                    <Box className={classes.segDisplay}>
-                        <SegDisplay digits={5} color='green' fontSize={0.4}>{value}</SegDisplay>
-                    </Box>
-                </Box>
-            </Box>
-        </Box>
-    }
+    const date = new Date()
+    const seconds = date.getSeconds()
+    const minutes = date.getMinutes()
+    let hours = date.getHours()
+    hours = hours > 12 ? hours - 12 : hours
 
     const screws = () => {
         const c = [
@@ -308,13 +306,39 @@ export default function Altimeter({ value }) {
         })
     }
 
+    const clock = ({ minutes, hours }) => {
+        return <Box className={classes.frame}>
+            <Box className={classes.bezel}>
+                <Box className={classes.bezelInner}>
+                    <Box className={classes.innerCircle}/>
+                    {tickMarks(classes)}
+                    {numbers(classes)}
+                    <Box className={classes.centerPin}/>
+                    {secondHand(classes, seconds * 6)}
+                    {minuteHand(classes, (minutes + seconds / 60) * 6)}
+                    {hourHand(classes, (hours + minutes / 60 + seconds / 3600) * 30)}
+                    <Box className={classes.segDisplay}>
+                        <SegDisplay
+                            digits={2}
+                            color='orange'
+                            fontSize={0.4}
+                            alpha
+                        >
+                            {formatTime()}
+                        </SegDisplay>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
+    }
+
     return <Box style={{ position: 'relative' }}>
         <Box style={{ position: 'absolute', top: 0, left: 0 }}>
             <BevelBox width={224} height={224} bevel={54} color={'#333'}/>
         </Box>
         <Box style={{ position: 'absolute', top: 2, left: 2 }}>
             <BevelBox width={220} height={220} bevel={54} offset={12}>
-                {alitmeter({ hand1val, hand2val, hand3val, value })}
+                {clock({ minutes, hours })}
             </BevelBox>
         </Box>
         {screws()}
