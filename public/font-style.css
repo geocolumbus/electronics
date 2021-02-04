@@ -7,3 +7,8 @@
     font-family: 'DSEG14Classic';
     src: url('fonts/DSEG14-Classic/DSEG14Classic-Regular.woff2') format('woff2');
 }
+
+@font-face {
+    font-family: 'OswaldRegular';
+    src: url('fonts/Oswald/Oswald-Regular.ttf') format('ttf');
+}
