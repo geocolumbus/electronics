@@ -136,53 +136,52 @@ const useStyles = makeStyles(theme => ({
     },
     screw1: {
         position: 'absolute',
-        top: 45,
-        left: 8,
+        top: 49,
+        left: 12,
         transform: 'rotate(25deg)'
     },
     screw2: {
         position: 'absolute',
-        top: 8,
-        left: 44,
+        top: 12,
+        left: 49,
         transform: 'rotate(-8deg)'
     },
     screw3: {
         position: 'absolute',
-        top: 44,
-        left: 193,
+        top: 49,
+        left: 197,
         transform: 'rotate(-11deg)'
     },
     screw4: {
         position: 'absolute',
-        top: 8,
-        left: 158,
+        top: 12,
+        left: 162,
         transform: 'rotate(7deg)'
     },
     screw5: {
         position: 'absolute',
-        top: 158,
-        left: 8,
+        top: 161,
+        left: 12,
         transform: 'rotate(17deg)'
     },
     screw6: {
         position: 'absolute',
-        top: 193,
-        left: 45,
+        top: 196,
+        left: 49,
         transform: 'rotate(-16deg)'
     },
     screw7: {
         position: 'absolute',
-        top: 158,
-        left: 193,
+        top: 161,
+        left: 197,
         transform: 'rotate(-33deg)'
     },
     screw8: {
         position: 'absolute',
-        top: 193,
-        left: 158,
+        top: 196,
+        left: 162,
         transform: 'rotate(7deg)'
     }
-
 }))
 
 const tickMarks = (classes) => {
@@ -334,7 +333,7 @@ export default function Clock() {
 
     return <Box style={{ position: 'relative' }}>
         <Box style={{ position: 'absolute', top: 0, left: 0 }}>
-            <BevelBox width={224} height={224} bevel={54} color={'#333'}/>
+            <BevelBox width={224} height={224} bevel={54} color={'#555'}/>
         </Box>
         <Box style={{ position: 'absolute', top: 2, left: 2 }}>
             <BevelBox width={220} height={220} bevel={54} offset={12}>

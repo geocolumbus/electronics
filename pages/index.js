@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { Container } from '@material-ui/core'
-import Altimeter from '../components/instruments/Altimeter'
+import Bezel from '../components/atoms/Bezel'
+import SegDisplay from '../components/segdisplay/SegDisplay'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -14,7 +15,9 @@ export default function Home() {
 
     return (
         <Container className={classes.container}>
-            <Altimeter>6720</Altimeter>
+            <Bezel>
+                <SegDisplay color='green'>9485868</SegDisplay>
+            </Bezel>
         </Container>
     )
 }
