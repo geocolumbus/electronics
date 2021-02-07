@@ -26,18 +26,22 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden'
     },
     flipNumberTop: {
+        position: 'absolute',
         height: 40,
         width: 28,
         fontSize: 48,
         color: '#eee',
-        marginTop: -14
+        marginTop: -14,
+        backgroundColor: '#333'
     },
     flipNumberBottom: {
-        height: 40,
+        position: 'absolute',
+        height: 56,
         width: 28,
         fontSize: 48,
         color: '#eee',
-        marginTop: -33
+        marginTop: -33,
+        backgroundColor: '#333'
     }
 }))
 
@@ -57,26 +61,32 @@ export default function FlipNumber({ value }) {
 
     const flipTop = value => {
         const scale1 = scale > 0.5 ? (scale - 0.5) * 2 : 0
-        return <Box
-            className={classes.flipTop}
-        >
+        return <Box className={classes.flipTop}>
             <Box
                 className={classes.flipNumberTop}
-                style={{ transform: `scaleY(${scale1})`, marginTop: `${-14 * scale1}px` }}
+                style={{
+                    transform: `scaleY(${scale1})`,
+                    marginTop: `${-14 * scale1}px`,
+                    zIndex: 10
+                }}
             >{value}</Box>
+            <Box className={classes.flipNumberTop}>{(parseInt(value, 10) + 1).toString()}</Box>
         </Box>
     }
 
     const flipBottom = value => {
         let scale2 = scale <= 0.5 ? scale * 2 : 1
         scale2 = scale2 < 0 ? 0 : scale2
-        return <Box
-            className={classes.flipBottom}
-        >
+        return <Box className={classes.flipBottom}>
             <Box
                 className={classes.flipNumberBottom}
-                style={{ transform: `scaleY(${(1 - scale2)})`, marginTop: `${-33 * (1 - scale2) - 21 * scale2}px` }}
-            >{(parseInt(value,10)+1).toString()}</Box>
+                style={{
+                    transform: `scaleY(${(1 - scale2)})`,
+                    marginTop: `${-33 * (1 - scale2) - 21 * scale2}px`,
+                    zIndex: 10
+                }}
+            >{(parseInt(value, 10) + 1).toString()}</Box>
+            <Box className={classes.flipNumberBottom}>{value}</Box>
         </Box>
     }
 
