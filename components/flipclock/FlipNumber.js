@@ -53,9 +53,9 @@ export default function FlipNumber({ value }) {
     useEffect(() => {
         const interval = setInterval(() => {
             setScale(prevScale => {
-                return prevScale <= 0 ? 0 : prevScale - 0.1
+                return prevScale <= 0 ? 0 : prevScale - 0.15
             })
-        }, 50)
+        }, 100)
         return () => clearInterval(interval)
     }, [])
 
@@ -82,7 +82,6 @@ export default function FlipNumber({ value }) {
                 className={classes.flipNumberBottom}
                 style={{
                     transform: `scaleY(${(1 - scale2)})`,
-                    marginTop: `${-33 * (1 - scale2) - 21 * scale2}px`,
                     zIndex: 10
                 }}
             >{(parseInt(value, 10) + 1).toString()}</Box>

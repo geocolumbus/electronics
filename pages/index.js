@@ -14,7 +14,7 @@ export default function Home() {
 
     return (
         <Container className={classes.container}>
-            <FlipNumber value={'8'}/>
+            <FlipNumber value={'5'}/>
         </Container>
     )
 }
