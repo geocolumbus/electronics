@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { Container } from '@material-ui/core'
-import Bezel from '../components/atoms/Bezel'
-import SegDisplay from '../components/segdisplay/SegDisplay'
+import FlipNumber from '../components/flipclock/FlipNumber'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -15,9 +14,7 @@ export default function Home() {
 
     return (
         <Container className={classes.container}>
-            <Bezel>
-                <SegDisplay color='green'>9485868</SegDisplay>
-            </Bezel>
+            <FlipNumber value={'8'}/>
         </Container>
     )
 }

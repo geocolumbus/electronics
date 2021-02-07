@@ -1,0 +1,87 @@
+import { Box } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import { useEffect, useState } from 'react'
+
+const useStyles = makeStyles(theme => ({
+    flipContainer: {
+        height: 40,
+        width: 28,
+        overflow: 'hidden',
+        backgroundColor: '#333',
+        position: 'relative'
+    },
+    flipTop: {
+        position: 'absolute',
+        height: 18,
+        width: 28,
+        left: 0.6,
+        overflow: 'hidden'
+    },
+    flipBottom: {
+        position: 'absolute',
+        height: 20,
+        width: 28,
+        top: 19,
+        left: 0.6,
+        overflow: 'hidden'
+    },
+    flipNumberTop: {
+        height: 40,
+        width: 28,
+        fontSize: 48,
+        color: '#eee',
+        marginTop: -14
+    },
+    flipNumberBottom: {
+        height: 40,
+        width: 28,
+        fontSize: 48,
+        color: '#eee',
+        marginTop: -33
+    }
+}))
+
+export default function FlipNumber({ value }) {
+
+    const classes = useStyles()
+    const [scale, setScale] = useState(1)
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setScale(prevScale => {
+                return prevScale <= 0 ? 0 : prevScale - 0.1
+            })
+        }, 50)
+        return () => clearInterval(interval)
+    }, [])
+
+    const flipTop = value => {
+        const scale1 = scale > 0.5 ? (scale - 0.5) * 2 : 0
+        return <Box
+            className={classes.flipTop}
+        >
+            <Box
+                className={classes.flipNumberTop}
+                style={{ transform: `scaleY(${scale1})`, marginTop: `${-14 * scale1}px` }}
+            >{value}</Box>
+        </Box>
+    }
+
+    const flipBottom = value => {
+        let scale2 = scale <= 0.5 ? scale * 2 : 1
+        scale2 = scale2 < 0 ? 0 : scale2
+        return <Box
+            className={classes.flipBottom}
+        >
+            <Box
+                className={classes.flipNumberBottom}
+                style={{ transform: `scaleY(${(1 - scale2)})`, marginTop: `${-33 * (1 - scale2) - 21 * scale2}px` }}
+            >{(parseInt(value,10)+1).toString()}</Box>
+        </Box>
+    }
+
+    return <Box className={classes.flipContainer}>
+        {flipTop(value)}
+        {flipBottom((parseInt(value, 10) + 0).toString())}
+    </Box>
+}
