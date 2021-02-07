@@ -49,6 +49,8 @@ export default function FlipNumber({ value }) {
 
     const classes = useStyles()
     const [scale, setScale] = useState(1)
+    const startValue = (parseInt(value, 10) - 1).toString()
+    const endValue = value
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -59,7 +61,7 @@ export default function FlipNumber({ value }) {
         return () => clearInterval(interval)
     }, [])
 
-    const flipTop = value => {
+    const flipTop = ({ startValue, endValue }) => {
         const scale1 = scale > 0.5 ? (scale - 0.5) * 2 : 0
         return <Box className={classes.flipTop}>
             <Box
@@ -69,12 +71,12 @@ export default function FlipNumber({ value }) {
                     marginTop: `${-14 * scale1}px`,
                     zIndex: 10
                 }}
-            >{value}</Box>
-            <Box className={classes.flipNumberTop}>{(parseInt(value, 10) + 1).toString()}</Box>
+            >{startValue}</Box>
+            <Box className={classes.flipNumberTop}>{endValue}</Box>
         </Box>
     }
 
-    const flipBottom = value => {
+    const flipBottom = ({ startValue, endValue }) => {
         let scale2 = scale <= 0.5 ? scale * 2 : 1
         scale2 = scale2 < 0 ? 0 : scale2
         return <Box className={classes.flipBottom}>
@@ -84,13 +86,13 @@ export default function FlipNumber({ value }) {
                     transform: `scaleY(${(1 - scale2)})`,
                     zIndex: 10
                 }}
-            >{(parseInt(value, 10) + 1).toString()}</Box>
-            <Box className={classes.flipNumberBottom}>{value}</Box>
+            >{endValue}</Box>
+            <Box className={classes.flipNumberBottom}>{startValue}</Box>
         </Box>
     }
 
     return <Box className={classes.flipContainer}>
-        {flipTop(value)}
-        {flipBottom((parseInt(value, 10) + 0).toString())}
+        {flipTop({ startValue, endValue })}
+        {flipBottom({ startValue, endValue })}
     </Box>
 }
