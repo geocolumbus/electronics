@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { Container } from '@material-ui/core'
-import FlipNumber from '../components/flipclock/FlipNumber'
+import FlipDisplay from '../components/flipclock/FlipDisplay'
+import { useEffect, useState } from 'react'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -11,10 +12,18 @@ const useStyles = makeStyles(theme => ({
 export default function Home() {
 
     const classes = useStyles()
+    const [count, setCount] = useState(1)
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCount(prevCount => prevCount + 1)
+        }, 1000)
+        return () => clearInterval(interval)
+    }, [])
 
     return (
         <Container className={classes.container}>
-            <FlipNumber value={'5'}/>
+            <FlipDisplay value={count} digits={5}/>
         </Container>
     )
 }
