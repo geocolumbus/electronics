@@ -3,8 +3,10 @@ import { Box } from '@material-ui/core'
 import CornerScrews from './CornerScrews'
 
 const useStyles = makeStyles(theme => ({
+    bezelContainer: {
+        display: 'inline-block'
+    },
     bezelFrame: {
-        display: 'inline-block',
         borderWidth: 2,
         borderColor: theme.custom.outline.color,
         borderStyle: 'solid',
@@ -22,9 +24,11 @@ const useStyles = makeStyles(theme => ({
 export default function Bezel({ children }) {
     const classes = useStyles()
 
-    return <CornerScrews>
-        <Box className={classes.bezelFrame}>
-            <Box className={classes.bezel}>{children}</Box>
-        </Box>
-    </CornerScrews>
+    return <Box className={classes.bezelContainer}>
+        <CornerScrews>
+            <Box className={classes.bezelFrame}>
+                <Box className={classes.bezel}>{children}</Box>
+            </Box>
+        </CornerScrews>
+    </Box>
 }

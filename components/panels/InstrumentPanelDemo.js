@@ -6,6 +6,7 @@ import SegDisplay from '../segdisplay/SegDisplay'
 import Clock from '../instruments/Clock'
 import Bezel from '../atoms/Bezel'
 import FlipDisplay from '../flipclock/FlipDisplay'
+import LedRow from '../leddisplay/LedRow'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -47,12 +48,16 @@ export default function InstrumentPanelDemo() {
         </Box>
         <Bezel>
             <SegDisplay>{count}</SegDisplay>
-            <SegDisplay color='red'>{count*7}</SegDisplay>
-            <SegDisplay color='blue'>{count*11}</SegDisplay>
+            <SegDisplay color='red'>{count * 7}</SegDisplay>
+            <SegDisplay color='blue'>{count * 11}</SegDisplay>
             <SegDisplay alpha color='orange'>{count.toString(16)}</SegDisplay>
         </Bezel>
         <Bezel>
             <FlipDisplay value={Math.floor(count / 100)} digits={8}/>
+        </Bezel>
+        <Bezel>
+            <LedRow color='blue'>{(count / 10) / 256}</LedRow>
+            <LedRow color='blue'>{(count / 10) % 256}</LedRow>
         </Bezel>
     </Box>
 }

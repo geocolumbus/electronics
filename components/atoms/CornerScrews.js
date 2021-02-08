@@ -5,10 +5,7 @@ import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
     screwContainer: {
-        position: 'relative',
-        display: 'inline-block',
-        margin: 0,
-        padding: 0
+        position: 'relative'
     },
     screw: {
         position: 'absolute',
@@ -23,11 +20,11 @@ const useStyles = makeStyles(theme => ({
         right: 6
     },
     bl: {
-        bottom: 6,
+        bottom: 2,
         left: 5
     },
     br: {
-        bottom: 6,
+        bottom: 2,
         right: 6
     }
 }))

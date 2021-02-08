@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 import LedRow from '../components/leddisplay/LedRow'
 import { useEffect, useState } from 'react'
+import Bezel from '../components/atoms/Bezel'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -23,6 +24,8 @@ export default function Home() {
     }, [])
 
     return (
-        <LedRow color='blue'>{count}</LedRow>
+        <Bezel>
+            <LedRow color='blue'>{count}</LedRow>
+        </Bezel>
     )
 }
