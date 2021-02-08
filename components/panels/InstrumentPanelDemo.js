@@ -56,8 +56,7 @@ export default function InstrumentPanelDemo() {
             <FlipDisplay value={Math.floor(count / 100)} digits={8}/>
         </Bezel>
         <Bezel>
-            <LedRow color='blue'>{(count / 10) / 256}</LedRow>
-            <LedRow color='blue'>{(count / 10) % 256}</LedRow>
+            <LedRow bits={16} color='blue'>{count / 10}</LedRow>
         </Bezel>
     </Box>
 }
