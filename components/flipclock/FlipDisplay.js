@@ -5,7 +5,9 @@ import FlipNumber from './FlipNumber'
 const useStyles = makeStyles(theme => ({
     display: {
         display: 'flex',
-        flexFlow: 'row wrap'
+        flexFlow: 'row wrap',
+        padding: '5px 0',
+        backgroundColor: '#333'
     }
 }))
 

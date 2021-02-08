@@ -1,29 +1,28 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { Container } from '@material-ui/core'
-import FlipDisplay from '../components/flipclock/FlipDisplay'
+import LedRow from '../components/leddisplay/LedRow'
 import { useEffect, useState } from 'react'
 
 const useStyles = makeStyles(theme => ({
     container: {
-        maxWidth: 1080
+        maxWidth: 1080,
+        display: 'flex',
+        flexFlow: 'row wrap'
     }
 }))
 
 export default function Home() {
 
     const classes = useStyles()
-    const [count, setCount] = useState(1)
 
+    const [count, setCount] = useState(1)
     useEffect(() => {
         const interval = setInterval(() => {
-            setCount(prevCount => prevCount + 1)
-        }, 1000)
+            setCount(prevCount => prevCount > 254 ? 0 : prevCount + 1)
+        }, 100)
         return () => clearInterval(interval)
     }, [])
 
     return (
-        <Container className={classes.container}>
-            <FlipDisplay value={count} digits={5}/>
-        </Container>
+        <LedRow color='blue'>{count}</LedRow>
     )
 }

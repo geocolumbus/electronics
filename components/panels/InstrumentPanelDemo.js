@@ -5,6 +5,7 @@ import Altimeter from '../instruments/Altimeter'
 import SegDisplay from '../segdisplay/SegDisplay'
 import Clock from '../instruments/Clock'
 import Bezel from '../atoms/Bezel'
+import FlipDisplay from '../flipclock/FlipDisplay'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -32,8 +33,8 @@ export default function InstrumentPanelDemo() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCount(prevCount => prevCount + 2)
-        }, 50)
+            setCount(prevCount => prevCount + 11)
+        }, 250)
         return () => clearInterval(interval)
     }, [])
 
@@ -45,10 +46,13 @@ export default function InstrumentPanelDemo() {
             <Clock/>
         </Box>
         <Bezel>
-            <SegDisplay>01234567</SegDisplay>
-            <SegDisplay color='red'>9485868</SegDisplay>
-            <SegDisplay color='blue'>29385</SegDisplay>
-            <SegDisplay alpha color='orange'>$8ZMSRY</SegDisplay>
+            <SegDisplay>{count}</SegDisplay>
+            <SegDisplay color='red'>{count*7}</SegDisplay>
+            <SegDisplay color='blue'>{count*11}</SegDisplay>
+            <SegDisplay alpha color='orange'>{count.toString(16)}</SegDisplay>
+        </Bezel>
+        <Bezel>
+            <FlipDisplay value={Math.floor(count / 100)} digits={8}/>
         </Bezel>
     </Box>
 }
