@@ -3,6 +3,7 @@ import LedRow from '../components/leddisplay/LedRow'
 import { useEffect, useState } from 'react'
 import Bezel from '../components/atoms/Bezel'
 import { Box } from '@material-ui/core'
+import Meter from "../components/instruments/Meter"
 
 const useStyles = makeStyles(theme => ({
     scale: {
@@ -24,19 +25,6 @@ export default function Home() {
     }, [])
 
     return (
-        <Box className={classes.scale}>
-            <Bezel>
-                {[...Array(32).keys()].map(i => {
-                    return <LedRow
-                        keys={i}
-                        bits={32}
-                        color='blue'
-                        count={count}
-                    >
-                        {Math.floor((2 ** 32) * Math.random())}
-                    </LedRow>
-                })}
-            </Bezel>
-        </Box>
+        <Meter/>
     )
 }
