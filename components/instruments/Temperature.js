@@ -131,7 +131,7 @@ export default function Temperature({ value }) {
     const classes = useStyles()
 
     value = value || 0
-    const hand1val = ((value + 40) / 160) * 273.375 - 136.6875
+    const hand1val = ((value + 40) / 160) * 270 - 136.6875
 
     const temperature = ({ hand1val, value }) => {
         return <Box className={classes.frame}>

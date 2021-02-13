@@ -30,7 +30,7 @@ export default function TemperatureDial({ size, color }) {
                 division={16}
                 subDivision={5}
                 startAngle={-136.6875}
-                endAngle={136.6875}
+                endAngle={133.3125}
             />
         </Box>
         <Box className={classes.inner}>
@@ -45,7 +45,7 @@ export default function TemperatureDial({ size, color }) {
                 division={9}
                 subDivision={5}
                 startAngle={-136.6875}
-                endAngle={133.3125}
+                endAngle={136.6875}
             />
         </Box>
     </Box>
