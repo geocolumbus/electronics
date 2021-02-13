@@ -1,9 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
-import LedRow from '../components/leddisplay/LedRow'
-import { useEffect, useState } from 'react'
-import Bezel from '../components/atoms/Bezel'
 import { Box } from '@material-ui/core'
-import Meter from '../components/instruments/Meter'
+import Temperature from '../components/instruments/Temperature'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -25,7 +22,7 @@ export default function Home() {
 */
     return (
         <Box className={classes.root}>
-            <Meter/>
+            <Temperature value={-20}/>
         </Box>
     )
 }

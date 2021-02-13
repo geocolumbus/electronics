@@ -7,6 +7,7 @@ import Clock from '../instruments/Clock'
 import Bezel from '../atoms/Bezel'
 import FlipDisplay from '../flipclock/FlipDisplay'
 import LedRow from '../leddisplay/LedRow'
+import Temperature from "../instruments/Temperature"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -45,6 +46,9 @@ export default function InstrumentPanelDemo() {
         </Box>
         <Box className={classes.meter}>
             <Clock/>
+        </Box>
+        <Box className={classes.meter}>
+            <Temperature value={27}/>
         </Box>
         <Bezel>
             <SegDisplay>{count}</SegDisplay>

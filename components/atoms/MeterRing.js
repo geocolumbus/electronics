@@ -6,7 +6,6 @@ const useStyles = makeStyles(theme => ({
     },
     text: {
         color: '#fff',
-        fontSize: 24,
         fontWeight: 500
     }
 }))
@@ -80,40 +79,45 @@ const tickMarks = ({ centerX, centerY, radius, startAngle, endAngle, side, min, 
 
 const labels = ({ centerX, centerY, radius, startAngle, endAngle, side, division, max, min }) => {
     const indicatorIncrement = (max - min) / division
+    const minSize = min.toString().length
+    const maxSize = max.toString().length
+    const indicatorSize = minSize > maxSize ? minSize : maxSize
     let indicatorCounter = min
     let radiusAdjust, radiusOffset, verticalOffset
-    if (max <= 10) {
+    if (max <= 99) {
         radiusAdjust = side === 'inner' ? -32 : 26
-        radiusOffset = side === 'inner' ? 6 : -20
+        radiusOffset = side === 'inner' ? 0 : -20
         verticalOffset = side === 'inner' ? 0 : 13
-    } else if (max <= 100) {
-        radiusAdjust = side === 'inner' ? -33 : 29
-        radiusOffset = side === 'inner' ? 0 : -27
+    } else if (max <= 999) {
+        radiusAdjust = side === 'inner' ? -33 : 32
+        radiusOffset = side === 'inner' ? 0 : -34
         verticalOffset = side === 'inner' ? -2 : 15
-    } else if (max <= 1000) {
+    } else if (max <= 9999) {
         radiusAdjust = side === 'inner' ? -38 : 38
         radiusOffset = side === 'inner' ? -2 : -38
         verticalOffset = side === 'inner' ? -5 : 20
-    } else if (max <= 10000) {
+    } else if (max <= 99999) {
         radiusAdjust = side === 'inner' ? -43 : 42
         radiusOffset = side === 'inner' ? -6 : -46
         verticalOffset = side === 'inner' ? -5 : 25
     }
     const result = []
     for (let angleInDegrees = startAngle; angleInDegrees < endAngle + 0.001; angleInDegrees += (endAngle - startAngle) / division) {
+        const indicator = indicatorCounter.toString()
+        const padder = (indicator.length - indicatorSize) * 4
         const start = polarToCartesian({
-            centerX: centerX + radiusAdjust / 2 + radiusOffset,
+            centerX: centerX + radiusAdjust / 2 + radiusOffset - padder,
             centerY: centerY - radiusAdjust / 4 + verticalOffset,
             radius: radius + radiusAdjust,
             angleInDegrees
         })
-        result.push({ start: start, value: indicatorCounter })
+        result.push({ start: start, value: indicator })
         indicatorCounter += indicatorIncrement
     }
     return result
 }
 
-export default function MeterRing({ width, height, radius, color, side, min, max, division, subDivision }) {
+export default function MeterRing({ width, height, radius, color = 'black', side, min, max, division, subDivision, startAngle = -135, endAngle = 135 }) {
     const classes = useStyles()
     const xmlns = 'http://www.w3.org/2000/svg'
     const strokeWidth = 1
@@ -125,8 +129,8 @@ export default function MeterRing({ width, height, radius, color, side, min, max
                 x: width / 2,
                 y: height / 2,
                 radius,
-                startAngle: -135,
-                endAngle: 135
+                startAngle,
+                endAngle
             })
         } fill={fill} stroke={color} strokeWidth={strokeWidth} />
         <path d={
@@ -134,8 +138,8 @@ export default function MeterRing({ width, height, radius, color, side, min, max
                 centerX: width / 2,
                 centerY: height / 2,
                 radius,
-                startAngle: -135,
-                endAngle: 135,
+                startAngle,
+                endAngle,
                 side,
                 division,
                 subDivision
@@ -145,14 +149,21 @@ export default function MeterRing({ width, height, radius, color, side, min, max
             centerX: width / 2,
             centerY: height / 2,
             radius: radius,
-            startAngle: -135,
-            endAngle: 135,
+            startAngle,
+            endAngle,
             side,
             division,
             max,
             min
         }).map((item, index) => {
-            return <text className={classes.text} key={index} x={item.start.x} y={item.start.y}>{item.value}</text>
+            return <text
+                className={classes.text}
+                key={index}
+                x={item.start.x}
+                y={item.start.y}
+                fontSize={24}
+                fill={color}
+            >{item.value}</text>
         })}
     </svg>
 }
