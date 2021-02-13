@@ -22,7 +22,7 @@ export default function TemperatureDial({ size, color }) {
             <MeterRing
                 width={440}
                 height={440}
-                radius={150}
+                radius={160}
                 color={color}
                 side={'outer'}
                 min={-40}
@@ -37,7 +37,7 @@ export default function TemperatureDial({ size, color }) {
             <MeterRing
                 width={440}
                 height={440}
-                radius={140}
+                radius={150}
                 color={color}
                 side={'inner'}
                 min={-40}
