@@ -3,19 +3,18 @@ import LedRow from '../components/leddisplay/LedRow'
 import { useEffect, useState } from 'react'
 import Bezel from '../components/atoms/Bezel'
 import { Box } from '@material-ui/core'
-import Meter from "../components/instruments/Meter"
+import Meter from '../components/instruments/Meter'
 
 const useStyles = makeStyles(theme => ({
-    scale: {
-        transformOrigin: 'top left',
-        transform: 'scale(0.75)'
+    root: {
+        padding: 10
     }
 }))
 
 export default function Home() {
 
     const classes = useStyles()
-
+    /*
     const [count, setCount] = useState(1)
     useEffect(() => {
         const interval = setInterval(() => {
@@ -23,8 +22,10 @@ export default function Home() {
         }, 500)
         return () => clearInterval(interval)
     }, [])
-
+*/
     return (
-        <Meter/>
+        <Box className={classes.root}>
+            <Meter/>
+        </Box>
     )
 }
