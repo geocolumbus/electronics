@@ -4,6 +4,8 @@ import SegDisplay from '../segdisplay/SegDisplay'
 import BevelBox from '../atoms/BevelBox'
 import PanelScrew from '../atoms/PanelScrew'
 import TemperatureDial from '../atoms/TemperatureDial'
+import useSWR from 'swr'
+import { useState } from 'react'
 
 const useStyles = makeStyles(theme => ({
     frame: {
@@ -127,13 +129,24 @@ const hand1 = (classes, val) => {
     </Box>
 }
 
-export default function Temperature({ value }) {
+export default function Temperature() {
     const classes = useStyles()
 
-    value = value || 0
-    const hand1val = ((value + 40) / 160) * 270 - 136.6875
+    let temp = 0
 
-    const temperature = ({ hand1val, value }) => {
+    const { data, error } = useSWR('/api/weather')
+
+    if (data && data.temperature) {
+        temp = parseInt(data.temperature, 10)
+    }
+
+    if (error) {
+        temp = 0
+    }
+
+    const hand1val = ((temp + 40) / 160) * 270 - 136.6875
+
+    const temperature = ({ hand1val, temp }) => {
         return <Box className={classes.frame}>
             <Box className={classes.bezel}>
                 <Box className={classes.bezelInner}>
@@ -143,7 +156,7 @@ export default function Temperature({ value }) {
                     <Box className={classes.centerPin}/>
                     {hand1(classes, hand1val)}
                     <Box className={classes.segDisplay}>
-                        <SegDisplay digits={4} color='green' fontSize={0.4}>{value}</SegDisplay>
+                        <SegDisplay digits={4} color='green' fontSize={0.4}>{temp}</SegDisplay>
                     </Box>
                 </Box>
             </Box>
@@ -172,7 +185,7 @@ export default function Temperature({ value }) {
         </Box>
         <Box style={{ position: 'absolute', top: 2, left: 2 }}>
             <BevelBox width={220} height={220} bevel={54} offset={12}>
-                {temperature({ hand1val, value })}
+                {temperature({ hand1val, temp })}
             </BevelBox>
         </Box>
         {screws()}

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 import Altimeter from '../instruments/Altimeter'
@@ -7,7 +6,8 @@ import Clock from '../instruments/Clock'
 import Bezel from '../atoms/Bezel'
 import FlipDisplay from '../flipclock/FlipDisplay'
 import LedRow from '../leddisplay/LedRow'
-import Temperature from "../instruments/Temperature"
+import Temperature from '../instruments/Temperature'
+import useSWR from 'swr'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -31,14 +31,7 @@ const useStyles = makeStyles(theme => ({
 export default function InstrumentPanelDemo() {
 
     const classes = useStyles()
-    const [count, setCount] = useState(0)
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCount(prevCount => prevCount + 11)
-        }, 250)
-        return () => clearInterval(interval)
-    }, [])
+    const count = 2021
 
     return <Box className={classes.root}>
         <Box className={classes.meter}>
@@ -48,7 +41,7 @@ export default function InstrumentPanelDemo() {
             <Clock/>
         </Box>
         <Box className={classes.meter}>
-            <Temperature value={27}/>
+            <Temperature/>
         </Box>
         <Bezel>
             <SegDisplay>{count}</SegDisplay>

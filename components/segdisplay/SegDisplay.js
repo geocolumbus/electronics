@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 export default function SegDisplay({ alpha, zeros, color, digits, fontSize, hex, binary, octal, lcd, children }) {
 
     const classes = useStyles()
-    let text = children
+    let text = children || ''
     digits = digits || 8
     fontSize = fontSize || 1
 

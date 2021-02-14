@@ -225,7 +225,7 @@ const numbers = (classes) => {
 }
 
 const secondHand = (classes, val) => {
-    return <Box className={classes.secondHandContainer} style = {{ transform: `rotate(${val}deg)` }}>
+    return <Box id='secondHandContainer' className={classes.secondHandContainer}>
         <Box className={classes.secondHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='0,0  100,0  55,100  55,400  60,425  60,660  40,660  40,425  45,400  45,100' stroke='red'
@@ -237,7 +237,7 @@ const secondHand = (classes, val) => {
 }
 
 const minuteHand = (classes, val) => {
-    return <Box className={classes.minuteHandContainer} style = {{ transform: `rotate(${val}deg)` }}>
+    return <Box id='minuteHandContainer' className={classes.minuteHandContainer}>
         <Box className={classes.minuteHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='50,0 100,100 100,450 0,450 0,100' stroke='white' strokeWidth='1' fill='white'/>
@@ -248,7 +248,7 @@ const minuteHand = (classes, val) => {
 }
 
 const hourHand = (classes, val) => {
-    return <Box className={classes.hourHandContainer} style = {{ transform: `rotate(${val}deg)` }}>
+    return <Box id='hourHandContainer' className={classes.hourHandContainer}>
         <Box className={classes.hourHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='50,0 100,250 70,450 70,450 30,450 30,450 0,250' stroke='white' strokeWidth='1'
@@ -257,28 +257,6 @@ const hourHand = (classes, val) => {
             </svg>
         </Box>
     </Box>
-}
-
-const formatTime = () => {
-    const date = new Date()
-    let hours = date.getHours()
-    let ampm = 'am'
-    if (hours > 12) {
-        ampm = 'pm'
-        hours -= 12
-    }
-    if (hours === 0) {
-        hours = 12
-    }
-    let formattedHours = hours.toString()
-    let formattedMinutes = date.getMinutes().toString()
-    let formattedSeconds = date.getSeconds().toString()
-
-    formattedHours = formattedHours.length === 1 ? `0${formattedHours}` : formattedHours
-    formattedMinutes = formattedMinutes.length === 1 ? `0${formattedMinutes}` : formattedMinutes
-    formattedSeconds = formattedSeconds.length === 1 ? `0${formattedSeconds}` : formattedSeconds
-    return ampm
-    // return `${formattedHours}:${formattedMinutes}:${formattedSeconds}${ampm === 'am' ? ' a' : ' p'}`
 }
 
 export default function Clock() {
@@ -305,6 +283,28 @@ export default function Clock() {
         })
     }
 
+    const updateClock = () => {
+        if (typeof window !== 'undefined') {
+            setInterval(() => {
+                const date = new Date()
+                const seconds = date.getSeconds()
+                const minutes = date.getMinutes()
+                let hours = date.getHours()
+                const ampm = hours > 12 ? 'pm' : 'am'
+                hours = hours > 12 ? hours - 12 : hours
+                window.document.getElementById('secondHandContainer')
+                    .style.transform = `rotate(${seconds * 6}deg)`
+                window.document.getElementById('minuteHandContainer')
+                    .style.transform = `rotate(${minutes * 6 + seconds * 0.1}deg)`
+                window.document.getElementById('hourHandContainer')
+                    .style.transform = `rotate(${hours * 30 + minutes * 0.5}deg)`
+                window.document.getElementById('formatTime')
+                window.document.querySelector('#segDisplay .MuiBox-root :nth-child(2)')
+                    .innerText = ampm
+            }, 1000)
+        }
+    }
+
     const clock = ({ minutes, hours }) => {
         return <Box className={classes.frame}>
             <Box className={classes.bezel}>
@@ -316,18 +316,17 @@ export default function Clock() {
                     {secondHand(classes, seconds * 6)}
                     {minuteHand(classes, (minutes + seconds / 60) * 6)}
                     {hourHand(classes, (hours + minutes / 60 + seconds / 3600) * 30)}
-                    <Box className={classes.segDisplay}>
+                    <Box id='segDisplay' className={classes.segDisplay}>
                         <SegDisplay
                             digits={2}
                             color='orange'
                             fontSize={0.4}
                             alpha
-                        >
-                            {formatTime()}
-                        </SegDisplay>
+                        />
                     </Box>
                 </Box>
             </Box>
+            {updateClock()}
         </Box>
     }
 

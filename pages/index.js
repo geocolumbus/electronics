@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 import Temperature from '../components/instruments/Temperature'
+import useSWR from 'swr'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -11,18 +12,16 @@ const useStyles = makeStyles(theme => ({
 export default function Home() {
 
     const classes = useStyles()
-    /*
-    const [count, setCount] = useState(1)
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCount(prevCount => prevCount > 254 ? 0 : prevCount + 1)
-        }, 500)
-        return () => clearInterval(interval)
-    }, [])
-*/
+
+    const weather = useSWR('/api/weather')
+    let temperature
+    try { temperature = parseInt(weather.data.temperature, 10) } catch (e) {
+        temperature = 0
+    }
+
     return (
         <Box className={classes.root}>
-            <Temperature value={-20}/>
+            <Temperature value={temperature}/>
         </Box>
     )
 }
