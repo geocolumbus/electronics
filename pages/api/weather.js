@@ -33,7 +33,7 @@ export default async(req, res) => {
     }
 
     try {
-        console.log(`Calling ${url}`)
+        console.log(`${new Date()} calling /api/weather`)
         const response = await fetch(url)
         const json = await response.json()
 
@@ -41,7 +41,7 @@ export default async(req, res) => {
             res.statusCode = response.status
             res.json({ message: response.statusMessage })
         } else {
-            res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate')
+            res.setHeader('Cache-Control', 'max-age=1200')
             res.statusCode = 200
             res.json(filter(json))
         }

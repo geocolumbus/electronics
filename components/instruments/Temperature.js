@@ -5,7 +5,7 @@ import BevelBox from '../atoms/BevelBox'
 import PanelScrew from '../atoms/PanelScrew'
 import TemperatureDial from '../atoms/TemperatureDial'
 import useSWR from 'swr'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useStyles = makeStyles(theme => ({
     frame: {
@@ -132,21 +132,20 @@ const hand1 = (classes, val) => {
 export default function Temperature() {
     const classes = useStyles()
 
-    let temp = 0
-
-    const { data, error } = useSWR('/api/weather')
-
-    if (data && data.temperature) {
-        temp = parseInt(data.temperature, 10)
+    const updateTemp = () => {
+        let temp = 0
+        const { data, error } = useSWR('/api/weather', { refreshInterval: 1000 * 60 * 20 })
+        if (data && data.temperature) {
+            temp = parseInt(data.temperature, 10)
+        }
+        if (error) {
+            console.log(error)
+        }
+        return temp
     }
+    const temp = updateTemp()
 
-    if (error) {
-        temp = 0
-    }
-
-    const hand1val = ((temp + 40) / 160) * 270 - 136.6875
-
-    const temperature = ({ hand1val, temp }) => {
+    const temperature = ({ temp }) => {
         return <Box className={classes.frame}>
             <Box className={classes.bezel}>
                 <Box className={classes.bezelInner}>
@@ -154,7 +153,7 @@ export default function Temperature() {
                         <TemperatureDial color={'white'} size={177}/>
                     </Box>
                     <Box className={classes.centerPin}/>
-                    {hand1(classes, hand1val)}
+                    {hand1(classes, ((temp + 40) / 160) * 270 - 136.6875)}
                     <Box className={classes.segDisplay}>
                         <SegDisplay digits={4} color='green' fontSize={0.4}>{temp}</SegDisplay>
                     </Box>
@@ -185,7 +184,7 @@ export default function Temperature() {
         </Box>
         <Box style={{ position: 'absolute', top: 2, left: 2 }}>
             <BevelBox width={220} height={220} bevel={54} offset={12}>
-                {temperature({ hand1val, temp })}
+                {temperature({ temp })}
             </BevelBox>
         </Box>
         {screws()}
