@@ -117,7 +117,7 @@ const labels = ({ centerX, centerY, radius, startAngle, endAngle, side, division
     return result
 }
 
-export default function MeterRing({ width, height, radius, color = 'black', side, min, max, division, subDivision, startAngle = -135, endAngle = 135 }) {
+export default function MeterRing({ width, height, radius, color = 'black', side, min, max, division, subDivision, startAngle = -135, endAngle = 135, fontSize = 24 }) {
     const classes = useStyles()
     const xmlns = 'http://www.w3.org/2000/svg'
     const strokeWidth = 1
@@ -161,7 +161,7 @@ export default function MeterRing({ width, height, radius, color = 'black', side
                 key={index}
                 x={item.start.x}
                 y={item.start.y}
-                fontSize={24}
+                fontSize={fontSize}
                 fill={color}
             >{item.value}</text>
         })}

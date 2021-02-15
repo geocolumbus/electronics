@@ -3,8 +3,8 @@ import { Box } from '@material-ui/core'
 import SegDisplay from '../segdisplay/SegDisplay'
 import BevelBox from '../atoms/BevelBox'
 import PanelScrew from '../atoms/PanelScrew'
-import TemperatureDial from '../atoms/TemperatureDial'
 import useSWR from 'swr'
+import BarometerDial from '../atoms/BarometerDial'
 
 const useStyles = makeStyles(theme => ({
     frame: {
@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     segDisplay: {
         position: 'absolute',
         top: 134,
-        left: 66,
+        left: 56,
         borderRadius: 6,
         overflow: 'hidden',
         width: 60
@@ -128,33 +128,33 @@ const hand1 = (classes, val) => {
     </Box>
 }
 
-export default function Temperature() {
+export default function Barometer() {
     const classes = useStyles()
 
-    const updateTemp = () => {
-        let temp = 0
+    const updatePressure = () => {
+        let pressure = 28
         const { data, error } = useSWR('/api/weather', { refreshInterval: 1000 * 60 * 20 })
-        if (data && data.temperature) {
-            temp = parseInt(data.temperature, 10)
+        if (data && data.pressure) {
+            pressure = parseFloat(data.pressure)
         }
         if (error) {
             console.log(error)
         }
-        return temp
+        return pressure
     }
-    const temp = updateTemp()
+    const pressure = updatePressure()
 
     const temperature = ({ temp }) => {
         return <Box className={classes.frame}>
             <Box className={classes.bezel}>
                 <Box className={classes.bezelInner}>
                     <Box className={classes.temperatureDial}>
-                        <TemperatureDial color={'white'} size={177}/>
+                        <BarometerDial color={'white'} size={177}/>
                     </Box>
                     <Box className={classes.centerPin}/>
-                    {hand1(classes, ((temp + 40) / 160) * 270 - 136.6875)}
+                    {hand1(classes, ((pressure - 28) / 3) * 270 - 135)}
                     <Box className={classes.segDisplay}>
-                        <SegDisplay digits={3} color='green' fontSize={0.4}>{temp}</SegDisplay>
+                        <SegDisplay digits={5} color='green' fontSize={0.4}>{Math.floor(pressure * 100) / 100}</SegDisplay>
                     </Box>
                 </Box>
             </Box>
@@ -182,7 +182,7 @@ export default function Temperature() {
             <BevelBox width={224} height={224} bevel={54} color={'#555'}/>
         </Box>
         <BevelBox width={220} height={220} bevel={54} offset={12}>
-            {temperature({ temp })}
+            {temperature({ temp: pressure })}
         </BevelBox>
         {screws()}
     </Box>

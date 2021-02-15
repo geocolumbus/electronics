@@ -308,14 +308,12 @@ export default function Altimeter({ value }) {
     }
 
     return <Box style={{ position: 'relative' }}>
-        <Box style={{ position: 'absolute', top: 0, left: 0 }}>
+        <Box style={{ position: 'absolute', top: -2, left: -2 }}>
             <BevelBox width={224} height={224} bevel={54} color={'#555'}/>
         </Box>
-        <Box style={{ position: 'absolute', top: 2, left: 2 }}>
-            <BevelBox width={220} height={220} bevel={54} offset={12}>
-                {alitmeter({ hand1val, hand2val, hand3val, value })}
-            </BevelBox>
-        </Box>
+        <BevelBox width={220} height={220} bevel={54} offset={12}>
+            {alitmeter({ hand1val, hand2val, hand3val, value })}
+        </BevelBox>
         {screws()}
     </Box>
 }

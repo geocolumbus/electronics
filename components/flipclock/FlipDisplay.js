@@ -11,13 +11,14 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function FlipDisplay({ digits, value }) {
+export default function FlipDisplay({ digits, children }) {
 
     const classes = useStyles()
+    const text = children || ''
 
     return <Box className={classes.display}>
         {[...Array(digits).keys()].map(i => {
-            const charVal = value.toString().padStart(digits, '0').charAt(i)
+            const charVal = text.toString().padStart(digits, ' ').charAt(i)
             return <FlipNumber key={i} value={charVal}/>
         })}
     </Box>

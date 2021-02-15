@@ -29,7 +29,19 @@ export default async(req, res) => {
                 'WindChill': '12'
             }
          */
-        return { temperature: json.currentobservation.Temp }
+        const res = {
+            temperature: json.currentobservation.Temp,
+            dewpoint: json.currentobservation.Dewp,
+            humidity: json.currentobservation.Relh,
+            pressure: json.currentobservation.SLP,
+            visibility: json.currentobservation.Visibility,
+            windchill: json.currentobservation.WindChill,
+            weather: json.currentobservation.Weather.trim(),
+            futureWeatherTime: json.time.startPeriodName[0],
+            futureWeather: json.data.weather[0]
+        }
+        console.log(res)
+        return res
     }
 
     try {
@@ -48,5 +60,6 @@ export default async(req, res) => {
     } catch (error) {
         res.statusCode = 500
         res.json(error)
+        console.log(error)
     }
 }

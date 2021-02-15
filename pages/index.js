@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
-import Temperature from '../components/instruments/Temperature'
-import useSWR from 'swr'
+import Barometer from '../components/instruments/Barometer'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -13,15 +12,9 @@ export default function Home() {
 
     const classes = useStyles()
 
-    const weather = useSWR('/api/weather')
-    let temperature
-    try { temperature = parseInt(weather.data.temperature, 10) } catch (e) {
-        temperature = 0
-    }
-
     return (
         <Box className={classes.root}>
-            <Temperature value={temperature}/>
+            <Barometer/>
         </Box>
     )
 }
