@@ -274,8 +274,8 @@ export default function Clock() {
     const seconds = date.getSeconds()
     const minutes = date.getMinutes()
     let hours = date.getHours()
-    hours = hours > 12 ? hours - 12 : hours
     const ampm = hours > 11 ? 'pm' : 'am'
+    hours = hours > 12 ? hours - 12 : hours
 
     const screws = () => {
         const c = [
