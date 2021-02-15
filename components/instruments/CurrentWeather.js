@@ -1,7 +1,7 @@
 import SegDisplay from '../segdisplay/SegDisplay'
 import useSWR from 'swr'
 
-export default function CurrentWeather({ color = 'orange' }) {
+export default function CurrentWeather({ color = 'orange', size = 20 }) {
 
     const updateWeather = () => {
         let weather = ''
@@ -14,8 +14,9 @@ export default function CurrentWeather({ color = 'orange' }) {
         }
         return weather
     }
-    let weather = updateWeather()
-    weather = weather.padEnd((16 + weather.length) / 2)
 
-    return <SegDisplay alpha color={color} digits={16}>{weather}</SegDisplay>
+    let weather = updateWeather()
+    weather = weather.padEnd((size + weather.length) / 2)
+
+    return <SegDisplay alpha color={color} digits={size}>{weather}</SegDisplay>
 }

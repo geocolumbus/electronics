@@ -4,7 +4,7 @@ import Barometer from '../components/instruments/Barometer'
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: 10
+        padding: 10,
     }
 }))
 

@@ -17,15 +17,19 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'space-around',
         alignContent: 'space-around',
         padding: '10px',
-        backgroundColor: '#78A',
+        backgroundColor: 'slategrey',
         height: '83vh',
         borderRadius: 9,
-        marginTop: 10,
+        marginTop: '8vh',
         paddingTop: 20
     },
     meter: {
-        transform: 'scale(1.25)',
-        margin: '10px 0'
+        transform: 'scale(1.36)',
+        marginTop: 30,
+        marginBottom: 40
+    },
+    ledDisplay: {
+        transform: 'scale(1.035)'
     }
 }))
 
@@ -68,8 +72,10 @@ export default function InstrumentPanelDemo() {
         <Bezel>
             <FutureWeather color={'green'} />
         </Bezel>
-        <Bezel>
-            <LedRow bits={32} color='yellow'>{time}</LedRow>
-        </Bezel>
+        <Box className={classes.ledDisplay}>
+            <Bezel>
+                <LedRow bits={32} color='yellow'>{time}</LedRow>
+            </Bezel>
+        </Box>
     </Box>
 }

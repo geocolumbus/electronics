@@ -225,7 +225,10 @@ const numbers = (classes) => {
 }
 
 const secondHand = (classes, val) => {
-    return <Box id='secondHandContainer' className={classes.secondHandContainer}>
+    return <Box
+        id='secondHandContainer'
+        className={classes.secondHandContainer}
+        style = {{ transform: `rotate(${val}deg)` }}>
         <Box className={classes.secondHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='0,0  100,0  55,100  55,400  60,425  60,660  40,660  40,425  45,400  45,100' stroke='red'
@@ -237,7 +240,10 @@ const secondHand = (classes, val) => {
 }
 
 const minuteHand = (classes, val) => {
-    return <Box id='minuteHandContainer' className={classes.minuteHandContainer}>
+    return <Box
+        id='minuteHandContainer'
+        className={classes.minuteHandContainer}
+        style = {{ transform: `rotate(${val}deg)` }}>
         <Box className={classes.minuteHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='50,0 100,100 100,450 0,450 0,100' stroke='white' strokeWidth='1' fill='white'/>
@@ -248,7 +254,10 @@ const minuteHand = (classes, val) => {
 }
 
 const hourHand = (classes, val) => {
-    return <Box id='hourHandContainer' className={classes.hourHandContainer}>
+    return <Box
+        id='hourHandContainer'
+        className={classes.hourHandContainer}
+        style = {{ transform: `rotate(${val}deg)` }}>
         <Box className={classes.hourHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='50,0 100,250 70,450 70,450 30,450 30,450 0,250' stroke='white' strokeWidth='1'
@@ -266,6 +275,7 @@ export default function Clock() {
     const minutes = date.getMinutes()
     let hours = date.getHours()
     hours = hours > 12 ? hours - 12 : hours
+    const ampm = hours > 11 ? 'pm' : 'am'
 
     const screws = () => {
         const c = [
@@ -283,29 +293,7 @@ export default function Clock() {
         })
     }
 
-    const updateClock = () => {
-        if (typeof window !== 'undefined') {
-            setInterval(() => {
-                const date = new Date()
-                const seconds = date.getSeconds()
-                const minutes = date.getMinutes()
-                let hours = date.getHours()
-                const ampm = hours > 11 ? 'pm' : 'am'
-                hours = hours > 12 ? hours - 12 : hours
-                window.document.getElementById('secondHandContainer')
-                    .style.transform = `rotate(${seconds * 6}deg)`
-                window.document.getElementById('minuteHandContainer')
-                    .style.transform = `rotate(${minutes * 6 + seconds * 0.1}deg)`
-                window.document.getElementById('hourHandContainer')
-                    .style.transform = `rotate(${hours * 30 + minutes * 0.5}deg)`
-                window.document.getElementById('formatTime')
-                window.document.querySelector('#segDisplay .MuiBox-root :nth-child(2)')
-                    .innerText = ampm
-            }, 1000)
-        }
-    }
-
-    const clock = ({ minutes, hours }) => {
+    const clock = ({ minutes, hours, ampm }) => {
         return <Box className={classes.frame}>
             <Box className={classes.bezel}>
                 <Box className={classes.bezelInner}>
@@ -322,11 +310,11 @@ export default function Clock() {
                             color='orange'
                             fontSize={0.4}
                             alpha
-                        />
+                        >{ampm}</SegDisplay>
                     </Box>
                 </Box>
             </Box>
-            {updateClock()}
+            {/* updateClock() */}
         </Box>
     }
 
@@ -335,7 +323,7 @@ export default function Clock() {
             <BevelBox width={224} height={224} bevel={54} color={'#555'}/>
         </Box>
         <BevelBox width={220} height={220} bevel={54} offset={12}>
-            {clock({ minutes, hours })}
+            {clock({ minutes, hours, ampm })}
         </BevelBox>
         {screws()}
     </Box>
