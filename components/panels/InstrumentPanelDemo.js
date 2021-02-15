@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     },
     meter: {
         transform: 'scale(1.25)',
-        margin: '10px 0',
+        margin: '10px 0'
     }
 }))
 
