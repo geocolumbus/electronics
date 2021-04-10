@@ -17,5 +17,5 @@ export default function FutureWeather({ color = 'orange' }) {
     let futureWeather = updateFutureWeather()
     futureWeather = futureWeather.padEnd((42 + futureWeather.length) / 2)
 
-    return <SegDisplay alpha color={color} fontSize={0.85} digits={40}>{futureWeather}</SegDisplay>
+    return <SegDisplay alpha color={color} fontSize={0.85} digits={42}>{futureWeather}</SegDisplay>
 }

@@ -7,8 +7,23 @@ const useStyles = makeStyles(theme => ({
     },
     inner: {
         position: 'absolute'
+    },
+    legendF: {
+        position: 'absolute',
+        left: 116,
+        top: 342,
+        color: '#FFF',
+        fontSize: 24,
+        width: 30
+    },
+    legendC: {
+        position: 'absolute',
+        left: 170,
+        top: 288,
+        color: '#FFF',
+        fontSize: 24,
+        width: 30
     }
-
 }))
 
 export default function TemperatureDial({ size, color }) {
@@ -47,5 +62,7 @@ export default function TemperatureDial({ size, color }) {
                 endAngle={136.6875}
             />
         </div>
+        <div className={classes.legendF}>ºF</div>
+        <div className={classes.legendC}>ºC</div>
     </div>
 }

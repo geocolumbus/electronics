@@ -7,8 +7,15 @@ const useStyles = makeStyles(theme => ({
     },
     inner: {
         position: 'absolute'
+    },
+    legend: {
+        position: 'absolute',
+        left: 170,
+        top: 390,
+        color: '#FFF',
+        fontSize: 18,
+        width: 130
     }
-
 }))
 
 export default function BarometerDial({ size, color }) {
@@ -50,5 +57,6 @@ export default function BarometerDial({ size, color }) {
                 endAngle={135}
             />
         </div>
+        <div className={classes.legend}>in. Hg / mbar</div>
     </div>
 }
