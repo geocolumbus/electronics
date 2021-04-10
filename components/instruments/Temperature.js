@@ -134,7 +134,7 @@ export default function Temperature() {
         let temp = 0
         const { data, error } = useSWR('/api/weather', { refreshInterval: 1000 * 60 * 20 })
         if (data && data.temperature) {
-            temp = parseInt(data.temperature, 10) + ' F'
+            temp = parseInt(data.temperature, 10)
         }
         if (error) {
             console.log(error)
@@ -153,7 +153,7 @@ export default function Temperature() {
                     <div className={classes.centerPin}/>
                     {hand1(classes, ((temp + 40) / 160) * 270 - 136.6875)}
                     <div className={classes.segDisplay}>
-                        <SegDisplay digits={4} color='green' fontSize={0.4}>{temp}</SegDisplay>
+                        <SegDisplay digits={4} color='green' fontSize={0.4}>{`${temp} F`}</SegDisplay>
                     </div>
                 </div>
             </div>

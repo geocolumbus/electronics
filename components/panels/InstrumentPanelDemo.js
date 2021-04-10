@@ -8,6 +8,7 @@ import FutureWeather from '../instruments/FutureWeather'
 import FlipDisplay from '../flipclock/FlipDisplay'
 import LedRow from '../leddisplay/LedRow'
 import { useEffect, useState } from 'react'
+import PanelLabel from '../labels/PanelLabel'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: '8vh',
         paddingTop: 20,
         width: 1024,
-        height: 600
+        height: 680
     },
     meter: {
         transform: 'scale(1.36)',
@@ -30,6 +31,10 @@ const useStyles = makeStyles(theme => ({
     },
     ledDisplay: {
         transform: 'scale(1.035)'
+    },
+    label: {
+        width: '100%',
+        border: 'thin solid red'
     }
 }))
 
@@ -72,9 +77,12 @@ export default function InstrumentPanelDemo() {
         <Bezel>
             <FutureWeather color={'green'} />
         </Bezel>
+        <Bezel>
+            <PanelLabel>Linux Time</PanelLabel>
+        </Bezel>
         <div className={classes.ledDisplay}>
             <Bezel>
-                <LedRow bits={32} color='yellow'>{time}</LedRow>
+                <LedRow bits={31} color='yellow'>{time}</LedRow>
             </Bezel>
         </div>
     </div>
