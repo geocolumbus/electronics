@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { Box } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -57,7 +56,7 @@ export default function BevelBox({ color, width, height, bevel, offset, children
     const classes = useStyles()
 
     const beveledContainer = ({ bezel, color, width, height, bevel, offset, children }) => {
-        return <Box
+        return <div
             className={classes.bvc}
             style = {{
                 width: `${width}px`,
@@ -65,14 +64,14 @@ export default function BevelBox({ color, width, height, bevel, offset, children
                 marginBottom: `${bevel}px`
             }}
         >
-            <Box
+            <div
                 className={clsx(classes.bevel, classes.tl, classes.tr)}
                 style={{
                     borderColor: `${color}`,
                     borderWidth: `${bevel}px`
                 }}
             />
-            <Box
+            <div
                 className={classes.inner}
                 style={color
                     ? {
@@ -86,8 +85,8 @@ export default function BevelBox({ color, width, height, bevel, offset, children
                         height: `${height - 2 * bevel}px`
                     }}
             >
-            </Box>
-            <Box
+            </div>
+            <div
                 className={clsx(classes.bevel, classes.bl, classes.br)}
                 style={color
                     ? {
@@ -96,21 +95,21 @@ export default function BevelBox({ color, width, height, bevel, offset, children
                     }
                     : { borderWidth: `${bevel}px` }}
             />
-            <Box className={classes.content} style={{
+            <div className={classes.content} style={{
                 top: `${offset}px`,
                 left: `${offset}px`,
                 zIndex: 10
-            }}>{children}</Box>
-        </Box>
+            }}>{children}</div>
+        </div>
     }
 
-    return <Box className={classes.container} style={{
+    return <div className={classes.container} style={{
         paddingLeft: `${bevel}px`,
         width: `${width}px`,
         height: `${height}px`
-    }}><Box className={classes.bevelContainers}>
+    }}><div className={classes.bevelContainers}>
             {beveledContainer({ color, width, height, bevel, offset, children })}
             {beveledContainer({ bezel: true, width: width, height: height, bevel, offset })}
-        </Box>
-    </Box>
+        </div>
+    </div>
 }

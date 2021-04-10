@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
 import MeterRing from './MeterRing'
-import { Box } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     outer: {
@@ -19,8 +18,8 @@ export default function BarometerDial({ size, color }) {
     const classes = useStyles()
     const scale = size / 440
 
-    return <Box className={classes.outer} style={{ transform: `scale(${scale})` }}>
-        <Box className={classes.inner}>
+    return <div className={classes.outer} style={{ transform: `scale(${scale})` }}>
+        <div className={classes.inner}>
             <MeterRing
                 width={440}
                 height={440}
@@ -35,8 +34,8 @@ export default function BarometerDial({ size, color }) {
                 endAngle={135.5832}
                 fontSize={20}
             />
-        </Box>
-        <Box className={classes.inner}>
+        </div>
+        <div className={classes.inner}>
             <MeterRing
                 width={440}
                 height={440}
@@ -50,6 +49,6 @@ export default function BarometerDial({ size, color }) {
                 startAngle={-135}
                 endAngle={135}
             />
-        </Box>
-    </Box>
+        </div>
+    </div>
 }

@@ -1,4 +1,3 @@
-import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
@@ -93,14 +92,14 @@ export default function SegDisplay({ alpha, zeros, color, digits, fontSize, hex,
 
     const fill = alpha ? '~'.repeat(digits) : '8'.repeat(digits)
 
-    return <Box className={clsx(classes.display, backgroundColor)} style={{
+    return <div className={clsx(classes.display, backgroundColor)} style={{
         width: `calc(${digits * 1.62 * fontSize}rem + ${fontSize < 0.5 ? 8 : 16}px)`,
         fontSize: `${fontSize * 2}rem`,
         height: 52 * fontSize + 1 - 4 * fontSize * fontSize,
         paddingTop: 3,
         fontFamily: alpha ? 'DSEG14Classic' : 'DSEG7Classic'
     }}>
-        <Box className={clsx(classes.background, onColor, dim)}>{fill}</Box>
-        <Box className={clsx(classes.data, onColor)} dangerouslySetInnerHTML={{ __html: text }}/>
-    </Box>
+        <div className={clsx(classes.background, onColor, dim)}>{fill}</div>
+        <div className={clsx(classes.data, onColor)} dangerouslySetInnerHTML={{ __html: text }}/>
+    </div>
 }

@@ -1,4 +1,3 @@
-import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useEffect, useState } from 'react'
 
@@ -70,36 +69,36 @@ export default function FlipNumber({ value }) {
 
     const flipTop = ({ previousValue, currentValue }) => {
         const scale1 = scale > 0.5 ? (scale - 0.5) * 2 : 0
-        return <Box className={classes.flipTop}>
-            <Box
+        return <div className={classes.flipTop}>
+            <div
                 className={classes.flipNumberTop}
                 style={{
                     transform: `scaleY(${scale1})`,
                     marginTop: `${-14 * scale1}px`,
                     zIndex: 10
                 }}
-            >{previousValue}</Box>
-            <Box className={classes.flipNumberTop}>{currentValue}</Box>
-        </Box>
+            >{previousValue}</div>
+            <div className={classes.flipNumberTop}>{currentValue}</div>
+        </div>
     }
 
     const flipBottom = ({ previousValue, currentValue }) => {
         let scale2 = scale <= 0.5 ? scale * 2 : 1
         scale2 = scale2 < 0 ? 0 : scale2
-        return <Box className={classes.flipBottom}>
-            <Box
+        return <div className={classes.flipBottom}>
+            <div
                 className={classes.flipNumberBottom}
                 style={{
                     transform: `scaleY(${(1 - scale2)})`,
                     zIndex: 10
                 }}
-            >{currentValue}</Box>
-            <Box className={classes.flipNumberBottom}>{previousValue}</Box>
-        </Box>
+            >{currentValue}</div>
+            <div className={classes.flipNumberBottom}>{previousValue}</div>
+        </div>
     }
 
-    return <Box className={classes.flipContainer}>
+    return <div className={classes.flipContainer}>
         {flipTop({ previousValue, currentValue })}
         {flipBottom({ previousValue, currentValue })}
-    </Box>
+    </div>
 }

@@ -7,12 +7,12 @@ export default function FutureWeather({ color = 'orange' }) {
         let futureWeather = ''
         const { data, error } = useSWR('/api/weather', { refreshInterval: 1000 * 60 * 20 })
         if (data && data.futureWeather && data.futureWeatherTime) {
-            futureWeather = `${data.futureWeatherTime.trim()}: ${data.futureWeather.trim()}`
+            futureWeather = data.futureWeather.trim()
         }
         if (error) {
             console.log(error)
         }
-        return futureWeather
+        return futureWeather.slice(0, 40)
     }
     let futureWeather = updateFutureWeather()
     futureWeather = futureWeather.padEnd((42 + futureWeather.length) / 2)

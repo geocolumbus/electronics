@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     off: {
@@ -54,5 +53,5 @@ export default function Led({ color, on }) {
     }
     const displayClass = on ? colorClass[color] : colorClass.off
 
-    return <Box className={displayClass}/>
+    return <div className={displayClass}/>
 }

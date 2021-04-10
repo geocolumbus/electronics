@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
 import Led from '../atoms/Led'
 
 const useStyles = makeStyles(theme => ({
@@ -27,11 +26,11 @@ export default function LedRow({ color, bits, children }) {
     while (bin.length < bits) {
         bin = '0' + bin
     }
-    return <Box style={{ width: bits * 28 + 12 }}>
-        <Box className={classes.ledHolder}>
+    return <div style={{ width: bits * 28 + 12 }}>
+        <div className={classes.ledHolder}>
             {bin.split('').map((digit, index) => {
                 return <Led color={color} key={index} on={digit === '1'}/>
             })}
-        </Box>
-    </Box>
+        </div>
+    </div>
 }

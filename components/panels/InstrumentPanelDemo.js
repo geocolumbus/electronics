@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
 import Clock from '../instruments/Clock'
 import Bezel from '../atoms/Bezel'
 import Temperature from '../instruments/Temperature'
@@ -18,10 +17,11 @@ const useStyles = makeStyles(theme => ({
         alignContent: 'space-around',
         padding: '10px',
         backgroundColor: 'slategrey',
-        height: '83vh',
         borderRadius: 9,
         marginTop: '8vh',
-        paddingTop: 20
+        paddingTop: 20,
+        width: 1024,
+        height: 600
     },
     meter: {
         transform: 'scale(1.36)',
@@ -53,16 +53,16 @@ export default function InstrumentPanelDemo() {
         return () => clearInterval(interval)
     }, [time, date])
 
-    return <Box className={classes.root}>
-        <Box className={classes.meter}>
+    return <div className={classes.root}>
+        <div className={classes.meter}>
             <Clock/>
-        </Box>
-        <Box className={classes.meter}>
+        </div>
+        <div className={classes.meter}>
             <Temperature/>
-        </Box>
-        <Box className={classes.meter}>
+        </div>
+        <div className={classes.meter}>
             <Barometer/>
-        </Box>
+        </div>
         <Bezel>
             <FlipDisplay digits={12}>{date}</FlipDisplay>
         </Bezel>
@@ -72,10 +72,10 @@ export default function InstrumentPanelDemo() {
         <Bezel>
             <FutureWeather color={'green'} />
         </Bezel>
-        <Box className={classes.ledDisplay}>
+        <div className={classes.ledDisplay}>
             <Bezel>
                 <LedRow bits={32} color='yellow'>{time}</LedRow>
             </Bezel>
-        </Box>
-    </Box>
+        </div>
+    </div>
 }

@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
 import SegDisplay from '../segdisplay/SegDisplay'
 import BevelBox from '../atoms/BevelBox'
 import PanelScrew from '../atoms/PanelScrew'
@@ -186,20 +185,20 @@ const useStyles = makeStyles(theme => ({
 const tickMarks = (classes) => {
     const marks = []
     for (let i = 0; i < 100; i += 2) {
-        const tickMark = <Box
+        const tickMark = <div
             key = {i}
             className={classes.tickMarkContainer}
             style={{ transform: `rotate(${i * 3.6}deg )` }}
         >
-            <Box className={classes.tickMark}/>
-        </Box>
-        const tickMarkSmall = <Box
+            <div className={classes.tickMark}/>
+        </div>
+        const tickMarkSmall = <div
             key = {i}
             className={classes.tickMarkContainerSmall}
             style={{ transform: `rotate(${i * 3.6}deg )` }}
         >
-            <Box className={classes.tickMarkSmall}/>
-        </Box>
+            <div className={classes.tickMarkSmall}/>
+        </div>
         marks.push(i % 10 === 0 ? tickMark : tickMarkSmall)
     }
     return marks
@@ -208,54 +207,54 @@ const tickMarks = (classes) => {
 const numbers = (classes) => {
     const tickNums = []
     for (let i = 0; i < 10; i++) {
-        const tickNum = <Box
+        const tickNum = <div
             key = {i}
             className={classes.tickNumbersContainer}
             style={{ transform: `rotate(${i * 36}deg)` }}
         >
-            <Box
+            <div
                 className={classes.tickNumbers}
                 style={{ transform: `rotate(${-i * 36}deg)` }}
-            >{i}</Box>
-        </Box>
+            >{i}</div>
+        </div>
         tickNums.push(tickNum)
     }
     return tickNums
 }
 
 const hand1 = (classes, val) => {
-    return <Box className={classes.hand1Container} style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.hand1}>
+    return <div className={classes.hand1Container} style = {{ transform: `rotate(${val}deg)` }}>
+        <div className={classes.hand1}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='50,0 100,100 100,450 0,450 0,100' stroke='white' strokeWidth='1' fill='white'/>
                 <polygon points='0,450 100,450 100,800 0,800' stroke='black' strokeWidth='1' fill='black'/>
             </svg>
-        </Box>
-    </Box>
+        </div>
+    </div>
 }
 
 const hand2 = (classes, val) => {
-    return <Box className={classes.hand2Container} style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.hand2}>
+    return <div className={classes.hand2Container} style = {{ transform: `rotate(${val}deg)` }}>
+        <div className={classes.hand2}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='50,0 100,250 70,450 70,450 30,450 30,450 0,250' stroke='white' strokeWidth='1'
                     fill='white'/>
                 <polygon points='30,450 70,450 70,800 30,800' stroke='black' strokeWidth='1' fill='black'/>
             </svg>
-        </Box>
-    </Box>
+        </div>
+    </div>
 }
 
 const hand3 = (classes, val) => {
-    return <Box className={classes.hand3Container} style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.hand3}>
+    return <div className={classes.hand3Container} style = {{ transform: `rotate(${val}deg)` }}>
+        <div className={classes.hand3}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='0,0 100,0 55,100 55,400 60,425 60,660 40,660 40,425 45,400 45,100' stroke='white'
                     strokeWidth='1' fill='white'/>
                 <polygon points='40,660 60,660 60,800 40,800' stroke='black' strokeWidth='1' fill='black'/>
             </svg>
-        </Box>
-    </Box>
+        </div>
+    </div>
 }
 
 export default function Altimeter({ value }) {
@@ -273,22 +272,22 @@ export default function Altimeter({ value }) {
     }
 
     const alitmeter = ({ hand1val, hand2val, hand3val, value }) => {
-        return <Box className={classes.frame}>
-            <Box className={classes.bezel}>
-                <Box className={classes.bezelInner}>
-                    <Box className={classes.innerCircle}/>
+        return <div className={classes.frame}>
+            <div className={classes.bezel}>
+                <div className={classes.bezelInner}>
+                    <div className={classes.innerCircle}/>
                     {tickMarks(classes)}
                     {numbers(classes)}
-                    <Box className={classes.centerPin}/>
+                    <div className={classes.centerPin}/>
                     {hand1(classes, hand1val)}
                     {hand2(classes, hand2val)}
                     {hand3(classes, hand3val)}
-                    <Box className={classes.segDisplay}>
+                    <div className={classes.segDisplay}>
                         <SegDisplay digits={5} color='green' fontSize={0.4}>{value}</SegDisplay>
-                    </Box>
-                </Box>
-            </Box>
-        </Box>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 
     const screws = () => {
@@ -303,17 +302,17 @@ export default function Altimeter({ value }) {
             classes.screw8
         ]
         return [...Array(8).keys()].map(i => {
-            return <Box key={i} className={c[i]}><PanelScrew/></Box>
+            return <div key={i} className={c[i]}><PanelScrew/></div>
         })
     }
 
-    return <Box style={{ position: 'relative' }}>
-        <Box style={{ position: 'absolute', top: -2, left: -2 }}>
+    return <div style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute', top: -2, left: -2 }}>
             <BevelBox width={224} height={224} bevel={54} color={'#555'}/>
-        </Box>
+        </div>
         <BevelBox width={220} height={220} bevel={54} offset={12}>
             {alitmeter({ hand1val, hand2val, hand3val, value })}
         </BevelBox>
         {screws()}
-    </Box>
+    </div>
 }

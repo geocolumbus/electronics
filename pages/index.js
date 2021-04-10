@@ -1,10 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
-import Barometer from '../components/instruments/Barometer'
+import { Container } from '@material-ui/core'
+import InstrumentPanelDemo from '../components/panels/InstrumentPanelDemo'
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        padding: 10,
+    container: {
+        maxWidth: 1080
     }
 }))
 
@@ -13,8 +13,8 @@ export default function Home() {
     const classes = useStyles()
 
     return (
-        <Box className={classes.root}>
-            <Barometer/>
-        </Box>
+        <Container className={classes.container}>
+            <InstrumentPanelDemo/>
+        </Container>
     )
 }

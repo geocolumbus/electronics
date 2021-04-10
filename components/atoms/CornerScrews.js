@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
 import PanelScrew from './PanelScrew'
 
 const useStyles = makeStyles(theme => ({
@@ -35,19 +34,19 @@ const useStyles = makeStyles(theme => ({
 export default function CornerScrews({ children }) {
     const classes = useStyles()
 
-    return <Box className={classes.screwContainer}>
+    return <div className={classes.screwContainer}>
         {children}
-        <Box className={classes.tl}>
+        <div className={classes.tl}>
             <PanelScrew/>
-        </Box>
-        <Box className={classes.tr}>
+        </div>
+        <div className={classes.tr}>
             <PanelScrew/>
-        </Box>
-        <Box className={classes.bl}>
+        </div>
+        <div className={classes.bl}>
             <PanelScrew/>
-        </Box>
-        <Box className={classes.br}>
+        </div>
+        <div className={classes.br}>
             <PanelScrew/>
-        </Box>
-    </Box>
+        </div>
+    </div>
 }

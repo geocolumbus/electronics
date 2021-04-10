@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
 import CornerScrews from './CornerScrews'
 
 const useStyles = makeStyles(theme => ({
@@ -24,11 +23,11 @@ const useStyles = makeStyles(theme => ({
 export default function Bezel({ children }) {
     const classes = useStyles()
 
-    return <Box className={classes.bezelContainer}>
+    return <div className={classes.bezelContainer}>
         <CornerScrews>
-            <Box className={classes.bezelFrame}>
-                <Box className={classes.bezel}>{children}</Box>
-            </Box>
+            <div className={classes.bezelFrame}>
+                <div className={classes.bezel}>{children}</div>
+            </div>
         </CornerScrews>
-    </Box>
+    </div>
 }

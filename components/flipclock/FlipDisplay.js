@@ -1,4 +1,3 @@
-import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import FlipNumber from './FlipNumber'
 
@@ -16,10 +15,10 @@ export default function FlipDisplay({ digits, children }) {
     const classes = useStyles()
     const text = children || ''
 
-    return <Box className={classes.display}>
+    return <div className={classes.display}>
         {[...Array(digits).keys()].map(i => {
             const charVal = text.toString().padStart(digits, ' ').charAt(i)
             return <FlipNumber key={i} value={charVal}/>
         })}
-    </Box>
+    </div>
 }

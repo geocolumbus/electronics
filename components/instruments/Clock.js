@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { Box } from '@material-ui/core'
 import SegDisplay from '../segdisplay/SegDisplay'
 import BevelBox from '../atoms/BevelBox'
 import PanelScrew from '../atoms/PanelScrew'
@@ -187,20 +186,20 @@ const useStyles = makeStyles(theme => ({
 const tickMarks = (classes) => {
     const marks = []
     for (let i = 0; i < 60; i += 1) {
-        const tickMark = <Box
+        const tickMark = <div
             key = {i}
             className={classes.tickMarkContainer}
             style={{ transform: `rotate(${i * 6}deg )` }}
         >
-            <Box className={classes.tickMark}/>
-        </Box>
-        const tickMarkSmall = <Box
+            <div className={classes.tickMark}/>
+        </div>
+        const tickMarkSmall = <div
             key = {i}
             className={classes.tickMarkContainerSmall}
             style={{ transform: `rotate(${i * 6}deg )` }}
         >
-            <Box className={classes.tickMarkSmall}/>
-        </Box>
+            <div className={classes.tickMarkSmall}/>
+        </div>
         marks.push(i % 5 === 0 ? tickMark : tickMarkSmall)
     }
     return marks
@@ -209,63 +208,63 @@ const tickMarks = (classes) => {
 const numbers = (classes) => {
     const tickNums = []
     for (let i = 0; i < 12; i++) {
-        const tickNum = <Box
+        const tickNum = <div
             key = {i}
             className={classes.tickNumbersContainer}
             style={{ transform: i < 9 ? `rotate(${i * 30 + 30}deg)` : `rotate(${i * 30 + 23}deg)` }}
         >
-            <Box
+            <div
                 className={classes.tickNumbers}
                 style={{ transform: i < 9 ? `rotate(${-i * 30 - 30}deg)` : `rotate(${-i * 30 - 23}deg)` }}
-            >{i + 1}</Box>
-        </Box>
+            >{i + 1}</div>
+        </div>
         tickNums.push(tickNum)
     }
     return tickNums
 }
 
 const secondHand = (classes, val) => {
-    return <Box
+    return <div
         id='secondHandContainer'
         className={classes.secondHandContainer}
         style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.secondHand}>
+        <div className={classes.secondHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='0,0  100,0  55,100  55,400  60,425  60,660  40,660  40,425  45,400  45,100' stroke='red'
                     strokeWidth='1' fill='red'/>
                 <polygon points='40,660 60,660 60,800 40,800' stroke='black' strokeWidth='1' fill='black'/>
             </svg>
-        </Box>
-    </Box>
+        </div>
+    </div>
 }
 
 const minuteHand = (classes, val) => {
-    return <Box
+    return <div
         id='minuteHandContainer'
         className={classes.minuteHandContainer}
         style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.minuteHand}>
+        <div className={classes.minuteHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='50,0 100,100 100,450 0,450 0,100' stroke='white' strokeWidth='1' fill='white'/>
                 <polygon points='0,450 100,450 100,800 0,800' stroke='black' strokeWidth='1' fill='black'/>
             </svg>
-        </Box>
-    </Box>
+        </div>
+    </div>
 }
 
 const hourHand = (classes, val) => {
-    return <Box
+    return <div
         id='hourHandContainer'
         className={classes.hourHandContainer}
         style = {{ transform: `rotate(${val}deg)` }}>
-        <Box className={classes.hourHand}>
+        <div className={classes.hourHand}>
             <svg width='100%' height='100%' viewBox='0,0,100,800' preserveAspectRatio='none'>
                 <polygon points='50,0 100,250 70,450 70,450 30,450 30,450 0,250' stroke='white' strokeWidth='1'
                     fill='white'/>
                 <polygon points='30,450 70,450 70,800 30,800' stroke='black' strokeWidth='1' fill='black'/>
             </svg>
-        </Box>
-    </Box>
+        </div>
+    </div>
 }
 
 export default function Clock() {
@@ -274,8 +273,8 @@ export default function Clock() {
     const seconds = date.getSeconds()
     const minutes = date.getMinutes()
     let hours = date.getHours()
-    hours = hours > 12 ? hours - 12 : hours
     const ampm = hours > 11 ? 'pm' : 'am'
+    hours = hours > 12 ? hours - 12 : hours
 
     const screws = () => {
         const c = [
@@ -289,42 +288,42 @@ export default function Clock() {
             classes.screw8
         ]
         return [...Array(8).keys()].map(i => {
-            return <Box key={i} className={c[i]}><PanelScrew/></Box>
+            return <div key={i} className={c[i]}><PanelScrew/></div>
         })
     }
 
     const clock = ({ minutes, hours, ampm }) => {
-        return <Box className={classes.frame}>
-            <Box className={classes.bezel}>
-                <Box className={classes.bezelInner}>
-                    <Box className={classes.innerCircle}/>
+        return <div className={classes.frame}>
+            <div className={classes.bezel}>
+                <div className={classes.bezelInner}>
+                    <div className={classes.innerCircle}/>
                     {tickMarks(classes)}
                     {numbers(classes)}
-                    <Box className={classes.centerPin}/>
+                    <div className={classes.centerPin}/>
                     {secondHand(classes, seconds * 6)}
                     {minuteHand(classes, (minutes + seconds / 60) * 6)}
                     {hourHand(classes, (hours + minutes / 60 + seconds / 3600) * 30)}
-                    <Box id='segDisplay' className={classes.segDisplay}>
+                    <div id='segDisplay' className={classes.segDisplay}>
                         <SegDisplay
                             digits={2}
                             color='orange'
                             fontSize={0.4}
                             alpha
                         >{ampm}</SegDisplay>
-                    </Box>
-                </Box>
-            </Box>
+                    </div>
+                </div>
+            </div>
             {/* updateClock() */}
-        </Box>
+        </div>
     }
 
-    return <Box style={{ position: 'relative' }}>
-        <Box style={{ position: 'absolute', top: -2, left: -2 }}>
+    return <div style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute', top: -2, left: -2 }}>
             <BevelBox width={224} height={224} bevel={54} color={'#555'}/>
-        </Box>
+        </div>
         <BevelBox width={220} height={220} bevel={54} offset={12}>
             {clock({ minutes, hours, ampm })}
         </BevelBox>
         {screws()}
-    </Box>
+    </div>
 }
