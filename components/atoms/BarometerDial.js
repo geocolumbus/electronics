@@ -15,12 +15,27 @@ const useStyles = makeStyles(theme => ({
         color: '#FFF',
         fontSize: 18,
         width: 130
+    },
+    legendHg: {
+        position: 'absolute',
+        left: 163,
+        top: 285,
+        color: '#FFF',
+        fontSize: 20,
+        width: 100
+    },
+    legendMbar: {
+        position: 'absolute',
+        left: 106,
+        top: 334,
+        color: '#FFF',
+        fontSize: 20,
+        width: 80
     }
+
 }))
 
 export default function BarometerDial({ size, color }) {
-
-    // 28.0535 31.00648
 
     const classes = useStyles()
     const scale = size / 440
@@ -57,6 +72,7 @@ export default function BarometerDial({ size, color }) {
                 endAngle={135}
             />
         </div>
-        <div className={classes.legend}>in. Hg / mbar</div>
+        <div className={classes.legendHg}>in. Hg</div>
+        <div className={classes.legendMbar}>mb</div>
     </div>
 }
